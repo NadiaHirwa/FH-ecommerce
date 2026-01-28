@@ -2,6 +2,7 @@ import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { ProductCard } from '../../components/ProductCard/ProductCard';
 import type { Product } from '../../types';
+import laptop from '../../assets/categories/laptop.jpg';
 import './SearchResults.css';
 
 interface SearchResultsProps {
@@ -23,7 +24,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ query: initialQuery }) =>
       name: 'Laptop Pro Max 15"',
       price: 999,
       originalPrice: 1299,
-      image: 'https://via.placeholder.com/250x250?text=Laptop',
+      image: laptop,
       rating: 4.8,
       reviews: 234,
       discount: 23,

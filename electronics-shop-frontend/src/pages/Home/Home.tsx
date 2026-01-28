@@ -2,7 +2,14 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ProductCard } from '../../components/ProductCard/ProductCard';
 import type { Product } from '../../types';
+import laptop from '../../assets/categories/laptop.jpg';
+import monitor from '../../assets/categories/monitor.jpg';
+import keyboard from '../../assets/categories/keyboard-mouse.jpg';
+import headphones from '../../assets/categories/headphones.jpg';
+import storage from '../../assets/categories/storage.jpg';
+import accessory from '../../assets/categories/accessory.jpg';
 import './Home.css';
+
 const Home: React.FC = () => {
   // Sample products
   const [products] = useState([
@@ -11,7 +18,7 @@ const Home: React.FC = () => {
       name: 'Laptop Pro Max 15"',
       price: 999,
       originalPrice: 1299,
-      image: 'https://via.placeholder.com/250x250?text=Laptop+Pro',
+      image: laptop,
       rating: 4.8,
       reviews: 234,
       discount: 23,
@@ -24,7 +31,7 @@ const Home: React.FC = () => {
       name: 'Wireless Mouse',
       price: 45,
       originalPrice: 69,
-      image: 'https://via.placeholder.com/250x250?text=Wireless+Mouse',
+      image: accessory,
       rating: 4.5,
       reviews: 125,
       discount: 35,
@@ -37,7 +44,7 @@ const Home: React.FC = () => {
       name: 'USB-C Hub',
       price: 79,
       originalPrice: 99,
-      image: 'https://via.placeholder.com/250x250?text=USB-C+Hub',
+      image: storage,
       rating: 4.3,
       reviews: 89,
       discount: 20,
@@ -50,7 +57,7 @@ const Home: React.FC = () => {
       name: 'Mechanical Keyboard',
       price: 149,
       originalPrice: 199,
-      image: 'https://via.placeholder.com/250x250?text=Keyboard',
+      image: keyboard,
       rating: 4.6,
       reviews: 312,
       discount: 25,
@@ -63,7 +70,7 @@ const Home: React.FC = () => {
       name: 'Desktop Monitor 4K',
       price: 499,
       originalPrice: 699,
-      image: 'https://via.placeholder.com/250x250?text=Monitor+4K',
+      image: monitor,
       rating: 4.7,
       reviews: 178,
       discount: 29,
@@ -76,7 +83,7 @@ const Home: React.FC = () => {
       name: 'Wireless Headphones',
       price: 199,
       originalPrice: 299,
-      image: 'https://via.placeholder.com/250x250?text=Headphones',
+      image: headphones,
       rating: 4.4,
       reviews: 456,
       discount: 33,
@@ -95,25 +102,25 @@ const Home: React.FC = () => {
     {
       id: 1,
       name: 'Laptops',
-      image: 'https://via.placeholder.com/300x200?text=Laptops',
+      image: laptop,
       count: 24,
     },
     {
       id: 2,
       name: 'Desktops',
-      image: 'https://via.placeholder.com/300x200?text=Desktops',
+      image: storage,
       count: 18,
     },
     {
       id: 3,
       name: 'Accessories',
-      image: 'https://via.placeholder.com/300x200?text=Accessories',
+      image: accessory,
       count: 156,
     },
     {
       id: 4,
       name: 'Phones',
-      image: 'https://via.placeholder.com/300x200?text=Phones',
+      image: headphones,
       count: 42,
     },
   ]);

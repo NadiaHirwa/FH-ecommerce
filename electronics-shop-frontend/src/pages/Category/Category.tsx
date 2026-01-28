@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ProductCard } from '../../components/ProductCard/ProductCard';
 import type { Product } from '../../types';
+import laptop from '../../assets/categories/laptop.jpg';
 import './Category.css';
 
 const Category: React.FC = () => {
@@ -18,7 +19,7 @@ const Category: React.FC = () => {
       name: 'Laptop Pro Max 15"',
       price: 999,
       originalPrice: 1299,
-      image: 'https://via.placeholder.com/250x250?text=Laptop',
+      image: laptop,
       rating: 4.8,
       reviews: 234,
       discount: 23,
@@ -31,7 +32,7 @@ const Category: React.FC = () => {
       name: 'Gaming Laptop',
       price: 1499,
       originalPrice: 1999,
-      image: 'https://via.placeholder.com/250x250?text=Gaming',
+      image: laptop,
       rating: 4.9,
       reviews: 189,
       discount: 25,
@@ -45,7 +46,7 @@ const Category: React.FC = () => {
     <div className="category-page">
       {/* Hero Banner */}
       <div className="category-hero">
-        <img src={`https://via.placeholder.com/1400x300?text=${category}`} alt={category} />
+        <img src={laptop} alt={category} />
         <div className="hero-content">
           <h1>{category}</h1>
           <p>{products.length} products available</p>
