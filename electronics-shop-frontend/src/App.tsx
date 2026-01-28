@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
 import { CartProvider } from './context/CartContext';
+import { AuthProvider } from './context/AuthContext';
 import { useState } from 'react';
 
 // Pages
@@ -21,23 +22,31 @@ import PrivacyPolicy from './pages/Policies/PrivacyPolicy';
 import Terms from './pages/Policies/Terms';
 import ReturnsWarranty from './pages/Policies/ReturnsWarranty';
 
+// Auth Pages
+import Login from './pages/Auth/Login/Login';
+import Register from './pages/Auth/Register/Register';
+import ForgotPassword from './pages/Auth/ForgotPassword/ForgotPassword';
+import ResetPassword from './pages/Auth/ResetPassword/ResetPassword';
+import VerifyEmail from './pages/Auth/VerifyEmail/VerifyEmail';
+
 import './App.css';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
 
   return (
-    <CartProvider>
-      <Router>
-        <div className="app-wrapper">
-          <Header 
-            cartItemsCount={0} 
-            onSearchChange={setSearchQuery} 
-            onCartClick={() => window.location.href = '/cart'} 
-            onAccountClick={() => {}} 
-          />
-          
-          <main className="main-content">
+    <AuthProvider>
+      <CartProvider>
+        <Router>
+          <div className="app-wrapper">
+            <Header 
+              cartItemsCount={0} 
+              onSearchChange={setSearchQuery} 
+              onCartClick={() => window.location.href = '/cart'} 
+              onAccountClick={() => {}} 
+            />
+            
+            <main className="main-content">
             <Routes>
               {/* Public Routes */}
               <Route path="/" element={<Home />} />
@@ -45,6 +54,13 @@ function App() {
               <Route path="/shop/category/:category" element={<Category />} />
               <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/search" element={<SearchResults query={searchQuery} />} />
+              
+              {/* Auth Routes */}
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/verify-email" element={<VerifyEmail />} />
               
               {/* Cart Routes */}
               <Route path="/cart" element={<Cart />} />
@@ -68,7 +84,8 @@ function App() {
           <Footer />
         </div>
       </Router>
-    </CartProvider>
+      </CartProvider>
+    </AuthProvider>
   );
 }
 
