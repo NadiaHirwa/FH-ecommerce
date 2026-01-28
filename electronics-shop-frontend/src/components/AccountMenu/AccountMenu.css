@@ -1,0 +1,177 @@
+.account-menu {
+  position: fixed;
+  top: 70px;
+  right: 20px;
+  width: 320px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+  z-index: 1000;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Backdrop for closing menu on click outside */
+.menu-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+}
+
+/* Menu Header */
+.menu-header {
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-avatar {
+  font-size: 2rem;
+  min-width: 3rem;
+  text-align: center;
+  background: #f3f4f6;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #1f2937;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-email {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin: 0.25rem 0 0 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.menu-title {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #1f2937;
+  margin: 0;
+}
+
+/* Menu Divider */
+.menu-divider {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 0;
+}
+
+/* Menu Items */
+.menu-item {
+  width: 100%;
+  padding: 0.875rem 1.25rem;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 0.95rem;
+  color: #374151;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: all 0.2s ease;
+}
+
+.menu-item:hover {
+  background-color: #f3f4f6;
+  color: #1e40af;
+}
+
+.menu-item:active {
+  background-color: #e5e7eb;
+}
+
+.menu-icon {
+  font-size: 1.1rem;
+  min-width: 1.5rem;
+  text-align: center;
+}
+
+/* Special Button States */
+.logout-btn {
+  color: #dc2626;
+}
+
+.logout-btn:hover {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.login-btn {
+  color: #1e40af;
+  font-weight: 500;
+  background-color: #f0f4ff;
+}
+
+.login-btn:hover {
+  background-color: #dce5ff;
+}
+
+.register-btn {
+  color: #059669;
+  font-weight: 500;
+  background-color: #f0fdf4;
+}
+
+.register-btn:hover {
+  background-color: #dcfce7;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .account-menu {
+    position: fixed;
+    top: 60px;
+    right: 0;
+    left: 0;
+    width: auto;
+    border-radius: 0;
+    border: none;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  .menu-header {
+    padding: 1rem;
+  }
+
+  .user-avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.5rem;
+  }
+}

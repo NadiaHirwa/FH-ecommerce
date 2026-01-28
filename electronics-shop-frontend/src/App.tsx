@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
+import { AccountMenu } from './components/AccountMenu/AccountMenu';
 import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './context/AuthContext';
 import { useState } from 'react';
@@ -33,6 +34,7 @@ import './App.css';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
 
   return (
     <AuthProvider>
@@ -43,7 +45,12 @@ function App() {
               cartItemsCount={0} 
               onSearchChange={setSearchQuery} 
               onCartClick={() => window.location.href = '/cart'} 
-              onAccountClick={() => {}} 
+              onAccountClick={() => setIsAccountMenuOpen(!isAccountMenuOpen)} 
+            />
+            
+            <AccountMenu 
+              isOpen={isAccountMenuOpen} 
+              onClose={() => setIsAccountMenuOpen(false)} 
             />
             
             <main className="main-content">
