@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './components/Header/Header';
-import Footer from './components/Footer/Footer';
+import { Header } from './components/Header/Header';
+import { Footer } from './components/Footer/Footer';
 import { CartProvider } from './context/CartContext';
 import { useState } from 'react';
 
@@ -24,7 +24,6 @@ import ReturnsWarranty from './pages/Policies/ReturnsWarranty';
 import './App.css';
 
 function App() {
-  const [cartCount, setCartCount] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
 
   return (
@@ -32,7 +31,7 @@ function App() {
       <Router>
         <div className="app-wrapper">
           <Header 
-            cartItemsCount={cartCount} 
+            cartItemsCount={0} 
             onSearchChange={setSearchQuery} 
             onCartClick={() => window.location.href = '/cart'} 
             onAccountClick={() => {}} 
