@@ -48,28 +48,28 @@ export const AccountMenu: React.FC<AccountMenuProps> = ({ isOpen, onClose }) => 
             {/* Menu Items */}
             <button 
               className="menu-item"
-              onClick={() => handleNavigation('/account/profile')}
+              onClick={() => handleNavigation('/dashboard/profile')}
             >
               <span className="menu-icon">👤</span>
               My Profile
             </button>
             <button 
               className="menu-item"
-              onClick={() => handleNavigation('/account/orders')}
+              onClick={() => handleNavigation('/dashboard/orders')}
             >
               <span className="menu-icon">📦</span>
               My Orders
             </button>
             <button 
               className="menu-item"
-              onClick={() => handleNavigation('/account/wishlist')}
+              onClick={() => handleNavigation('/dashboard/wishlist')}
             >
               <span className="menu-icon">❤️</span>
               Wishlist
             </button>
             <button 
               className="menu-item"
-              onClick={() => handleNavigation('/account/settings')}
+              onClick={() => handleNavigation('/dashboard/password')}
             >
               <span className="menu-icon">⚙️</span>
               Settings
