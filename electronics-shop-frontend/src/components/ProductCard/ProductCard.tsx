@@ -1,5 +1,5 @@
 import React from 'react';
-import { Product } from '../../types';
+import type { Product } from '../../types';
 import { formatPrice } from '../../utils/helpers';
 import './ProductCard.css';
 

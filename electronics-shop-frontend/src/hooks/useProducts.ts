@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Product } from '../types';
+import type { Product } from '../types';
 import { api } from '../services/api';
 
 export const useProducts = (filters?: Record<string, unknown>) => {

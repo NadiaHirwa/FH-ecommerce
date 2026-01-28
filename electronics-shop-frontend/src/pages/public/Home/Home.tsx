@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Product } from '../../../types';
+import type { Product } from '../../../types';
 import { useProducts } from '../../../hooks/useProducts';
 import { useCart } from '../../../context/CartContext';
 import { ProductCard } from '../../../components/ProductCard/ProductCard';
