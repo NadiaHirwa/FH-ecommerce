@@ -1,46 +1,73 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Toaster } from 'react-hot-toast';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
 import { CartProvider } from './context/CartContext';
-import { PublicLayout } from './layouts/PublicLayout';
+import { useState } from 'react';
 
-// Public Pages
-import { Home } from './pages/public/Home/Home';
-import { Shop } from './pages/public/Shop/Shop';
-import { ProductDetail } from './pages/public/ProductDetail/ProductDetail';
-import { Cart } from './pages/public/Cart/Cart';
-import { Checkout } from './pages/public/Checkout/Checkout';
-import { OrderSuccess } from './pages/public/OrderSuccess/OrderSuccess';
-import { TrackOrder } from './pages/public/TrackOrder/TrackOrder';
-import { SearchResults } from './pages/public/SearchResults/SearchResults';
-import { About } from './pages/public/About/About';
-import { Contact } from './pages/public/Contact/Contact';
+// Pages
+import Home from './pages/Home/Home';
+import Shop from './pages/Shop/Shop';
+import ProductDetail from './pages/ProductDetail/ProductDetail';
+import Cart from './pages/Cart/Cart';
+import Checkout from './pages/Checkout/Checkout';
+import OrderSuccess from './pages/OrderSuccess/OrderSuccess';
+import TrackOrder from './pages/TrackOrder/TrackOrder';
+import SearchResults from './pages/SearchResults/SearchResults';
+import Category from './pages/Category/Category';
+import AboutUs from './pages/AboutUs/AboutUs';
+import ContactUs from './pages/ContactUs/ContactUs';
+import FAQ from './pages/FAQ/FAQ';
+import PrivacyPolicy from './pages/Policies/PrivacyPolicy';
+import Terms from './pages/Policies/Terms';
+import ReturnsWarranty from './pages/Policies/ReturnsWarranty';
+
+import './App.css';
 
 function App() {
+  const [cartCount, setCartCount] = useState(0);
+  const [searchQuery, setSearchQuery] = useState('');
+
   return (
     <CartProvider>
       <Router>
-        <Routes>
-          <Route element={<PublicLayout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/shop" element={<Shop />} />
-            <Route path="/categories" element={<Shop />} /> {/* Reusing Shop for now */}
-            <Route path="/product/:id" element={<ProductDetail />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/order-success" element={<OrderSuccess />} />
-            <Route path="/track-order" element={<TrackOrder />} />
-            <Route path="/search" element={<SearchResults />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
+        <div className="app-wrapper">
+          <Header 
+            cartItemsCount={cartCount} 
+            onSearchChange={setSearchQuery} 
+            onCartClick={() => window.location.href = '/cart'} 
+            onAccountClick={() => {}} 
+          />
+          
+          <main className="main-content">
+            <Routes>
+              {/* Public Routes */}
+              <Route path="/" element={<Home />} />
+              <Route path="/shop" element={<Shop />} />
+              <Route path="/shop/category/:category" element={<Category />} />
+              <Route path="/product/:id" element={<ProductDetail />} />
+              <Route path="/search" element={<SearchResults query={searchQuery} />} />
+              
+              {/* Cart Routes */}
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/order-success" element={<OrderSuccess />} />
+              <Route path="/track-order" element={<TrackOrder />} />
+              
+              {/* Info Routes */}
+              <Route path="/about" element={<AboutUs />} />
+              <Route path="/contact" element={<ContactUs />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/terms" element={<Terms />} />
+              <Route path="/returns" element={<ReturnsWarranty />} />
+              
+              {/* Catch-all */}
+              <Route path="*" element={<Home />} />
+            </Routes>
+          </main>
 
-            {/* Placeholders for other static pages */}
-            <Route path="/faq" element={<div className="container-custom py-12"><h1>FAQ</h1></div>} />
-            <Route path="/privacy" element={<div className="container-custom py-12"><h1>Privacy Policy</h1></div>} />
-            <Route path="/terms" element={<div className="container-custom py-12"><h1>Terms & Conditions</h1></div>} />
-            <Route path="/returns" element={<div className="container-custom py-12"><h1>Returns & Warranty</h1></div>} />
-          </Route>
-        </Routes>
-        <Toaster position="bottom-right" />
+          <Footer />
+        </div>
       </Router>
     </CartProvider>
   );
