@@ -30,7 +30,15 @@ import ForgotPassword from './pages/Auth/ForgotPassword/ForgotPassword';
 import ResetPassword from './pages/Auth/ResetPassword/ResetPassword';
 import VerifyEmail from './pages/Auth/VerifyEmail/VerifyEmail';
 
-import './App.css';
+// Dashboard Pages
+import { DashboardLayout } from './pages/Dashboard/DashboardLayout';
+import Overview from './pages/Dashboard/Overview/Overview';
+import MyOrders from './pages/Dashboard/MyOrders/MyOrders';
+import Wishlist from './pages/Dashboard/Wishlist/Wishlist';
+import SavedAddresses from './pages/Dashboard/SavedAddresses/SavedAddresses';
+import ProfileSettings from './pages/Dashboard/ProfileSettings/ProfileSettings';
+import ChangePassword from './pages/Dashboard/ChangePassword/ChangePassword';
+import Support from './pages/Dashboard/Support/Support';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -68,6 +76,15 @@ function App() {
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/verify-email" element={<VerifyEmail />} />
+              
+              {/* Dashboard Routes */}
+              <Route path="/dashboard" element={<DashboardLayout><Overview /></DashboardLayout>} />
+              <Route path="/dashboard/orders" element={<DashboardLayout><MyOrders /></DashboardLayout>} />
+              <Route path="/dashboard/wishlist" element={<DashboardLayout><Wishlist /></DashboardLayout>} />
+              <Route path="/dashboard/addresses" element={<DashboardLayout><SavedAddresses /></DashboardLayout>} />
+              <Route path="/dashboard/profile" element={<DashboardLayout><ProfileSettings /></DashboardLayout>} />
+              <Route path="/dashboard/password" element={<DashboardLayout><ChangePassword /></DashboardLayout>} />
+              <Route path="/dashboard/support" element={<DashboardLayout><Support /></DashboardLayout>} />
               
               {/* Cart Routes */}
               <Route path="/cart" element={<Cart />} />
