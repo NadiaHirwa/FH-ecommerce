@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
-import ProductCard from '../../components/ProductCard/ProductCard';
+import { ProductCard } from '../../components/ProductCard/ProductCard';
+import type { Product } from '../../types';
 import './SearchResults.css';
 
 interface SearchResultsProps {
@@ -11,9 +12,14 @@ const SearchResults: React.FC<SearchResultsProps> = ({ query: initialQuery }) =>
   const [searchParams] = useSearchParams();
   const query = initialQuery || searchParams.get('q') || '';
 
+  const handleAddToCart = (product: Product) => {
+    console.log('Added to cart:', product);
+    alert(`${product.name} added to cart!`);
+  };
+
   const mockResults = query ? [
     {
-      id: 1,
+      id: '1',
       name: 'Laptop Pro Max 15"',
       price: 999,
       originalPrice: 1299,
@@ -22,6 +28,8 @@ const SearchResults: React.FC<SearchResultsProps> = ({ query: initialQuery }) =>
       reviews: 234,
       discount: 23,
       inStock: true,
+      description: 'Powerful laptop for professionals',
+      category: 'Laptops',
     },
   ] : [];
 
@@ -38,7 +46,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ query: initialQuery }) =>
         {mockResults.length > 0 ? (
           <div className="results-grid">
             {mockResults.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product.id} product={product} onAddToCart={handleAddToCart} />
             ))}
           </div>
         ) : (

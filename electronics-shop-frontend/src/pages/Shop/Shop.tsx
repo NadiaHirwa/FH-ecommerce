@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import ProductCard from '../../components/ProductCard/ProductCard';
+import { ProductCard } from '../../components/ProductCard/ProductCard';
+import type { Product } from '../../types';
 import './Shop.css';
 
 const Shop: React.FC = () => {
   const [products] = useState([
     {
-      id: 1,
+      id: '1',
       name: 'Laptop Pro Max 15"',
       price: 999,
       originalPrice: 1299,
@@ -17,9 +17,10 @@ const Shop: React.FC = () => {
       inStock: true,
       category: 'Laptops',
       brand: 'Dell',
+      description: 'Powerful laptop for professionals',
     },
     {
-      id: 2,
+      id: '2',
       name: 'Wireless Mouse',
       price: 45,
       originalPrice: 69,
@@ -30,9 +31,10 @@ const Shop: React.FC = () => {
       inStock: true,
       category: 'Accessories',
       brand: 'Logitech',
+      description: 'Ergonomic wireless mouse',
     },
     {
-      id: 3,
+      id: '3',
       name: 'USB-C Hub',
       price: 79,
       originalPrice: 99,
@@ -43,9 +45,10 @@ const Shop: React.FC = () => {
       inStock: true,
       category: 'Accessories',
       brand: 'Anker',
+      description: 'Multi-port USB-C hub',
     },
     {
-      id: 4,
+      id: '4',
       name: 'Mechanical Keyboard',
       price: 149,
       originalPrice: 199,
@@ -56,9 +59,10 @@ const Shop: React.FC = () => {
       inStock: true,
       category: 'Accessories',
       brand: 'Corsair',
+      description: 'High-performance mechanical keyboard',
     },
     {
-      id: 5,
+      id: '5',
       name: 'Desktop Monitor 4K',
       price: 499,
       originalPrice: 699,
@@ -69,9 +73,10 @@ const Shop: React.FC = () => {
       inStock: true,
       category: 'Desktops',
       brand: 'LG',
+      description: 'Beautiful 4K display monitor',
     },
     {
-      id: 6,
+      id: '6',
       name: 'Wireless Headphones',
       price: 199,
       originalPrice: 299,
@@ -82,9 +87,10 @@ const Shop: React.FC = () => {
       inStock: true,
       category: 'Accessories',
       brand: 'Sony',
+      description: 'Premium wireless headphones',
     },
     {
-      id: 7,
+      id: '7',
       name: 'Gaming Desktop',
       price: 1499,
       originalPrice: 1999,
@@ -95,9 +101,10 @@ const Shop: React.FC = () => {
       inStock: true,
       category: 'Desktops',
       brand: 'HP',
+      description: 'High-performance gaming desktop',
     },
     {
-      id: 8,
+      id: '8',
       name: 'Smartphone Pro',
       price: 899,
       originalPrice: 1099,
@@ -108,6 +115,7 @@ const Shop: React.FC = () => {
       inStock: true,
       category: 'Phones',
       brand: 'Apple',
+      description: 'Latest flagship smartphone',
     },
   ]);
 
@@ -120,6 +128,11 @@ const Shop: React.FC = () => {
 
   const [sortBy, setSortBy] = useState('popular');
   const [itemsPerPage, setItemsPerPage] = useState(12);
+
+  const handleAddToCart = (product: Product) => {
+    console.log('Added to cart:', product);
+    alert(`${product.name} added to cart!`);
+  };
 
   const categories = ['All', 'Laptops', 'Desktops', 'Phones', 'Accessories'];
   const brands = ['All', 'Dell', 'HP', 'Lenovo', 'Apple', 'Sony', 'LG', 'Logitech'];
@@ -151,7 +164,7 @@ const Shop: React.FC = () => {
       case 'price-high':
         return b.price - a.price;
       case 'newest':
-        return b.id - a.id;
+        return b.id.localeCompare(a.id);
       case 'rating':
         return b.rating - a.rating;
       default:
@@ -280,7 +293,7 @@ const Shop: React.FC = () => {
           {sortedProducts.length > 0 ? (
             <div className="products-grid">
               {sortedProducts.slice(0, itemsPerPage).map((product) => (
-                <ProductCard key={product.id} product={product} />
+                <ProductCard key={product.id} product={product} onAddToCart={handleAddToCart} />
               ))}
             </div>
           ) : (

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import ProductCard from '../../components/ProductCard/ProductCard';
+import { ProductCard } from '../../components/ProductCard/ProductCard';
+import type { Product } from '../../types';
 import './Home.css';
-
 const Home: React.FC = () => {
   // Sample products
   const [products] = useState([
     {
-      id: 1,
+      id: '1',
       name: 'Laptop Pro Max 15"',
       price: 999,
       originalPrice: 1299,
@@ -16,9 +16,11 @@ const Home: React.FC = () => {
       reviews: 234,
       discount: 23,
       inStock: true,
+      description: 'Powerful laptop for professionals',
+      category: 'Laptops',
     },
     {
-      id: 2,
+      id: '2',
       name: 'Wireless Mouse',
       price: 45,
       originalPrice: 69,
@@ -27,9 +29,11 @@ const Home: React.FC = () => {
       reviews: 125,
       discount: 35,
       inStock: true,
+      description: 'Ergonomic wireless mouse',
+      category: 'Accessories',
     },
     {
-      id: 3,
+      id: '3',
       name: 'USB-C Hub',
       price: 79,
       originalPrice: 99,
@@ -38,9 +42,11 @@ const Home: React.FC = () => {
       reviews: 89,
       discount: 20,
       inStock: true,
+      description: 'Multi-port USB-C hub',
+      category: 'Accessories',
     },
     {
-      id: 4,
+      id: '4',
       name: 'Mechanical Keyboard',
       price: 149,
       originalPrice: 199,
@@ -49,9 +55,11 @@ const Home: React.FC = () => {
       reviews: 312,
       discount: 25,
       inStock: true,
+      description: 'High-performance mechanical keyboard',
+      category: 'Accessories',
     },
     {
-      id: 5,
+      id: '5',
       name: 'Desktop Monitor 4K',
       price: 499,
       originalPrice: 699,
@@ -60,9 +68,11 @@ const Home: React.FC = () => {
       reviews: 178,
       discount: 29,
       inStock: true,
+      description: 'Beautiful 4K display monitor',
+      category: 'Monitors',
     },
     {
-      id: 6,
+      id: '6',
       name: 'Wireless Headphones',
       price: 199,
       originalPrice: 299,
@@ -71,8 +81,15 @@ const Home: React.FC = () => {
       reviews: 456,
       discount: 33,
       inStock: true,
+      description: 'Premium wireless headphones',
+      category: 'Audio',
     },
   ]);
+
+  const handleAddToCart = (product: Product) => {
+    console.log('Added to cart:', product);
+    alert(`${product.name} added to cart!`);
+  };
 
   const [categories] = useState([
     {
@@ -143,7 +160,7 @@ const Home: React.FC = () => {
           <h2>🔥 Popular Now</h2>
           <div className="products-grid">
             {products.slice(0, 4).map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product.id} product={product} onAddToCart={handleAddToCart} />
             ))}
           </div>
           <Link to="/shop" className="btn btn-secondary">
@@ -158,7 +175,7 @@ const Home: React.FC = () => {
           <h2>⭐ New Arrivals</h2>
           <div className="products-grid">
             {products.slice(2, 6).map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product.id} product={product} onAddToCart={handleAddToCart} />
             ))}
           </div>
         </div>

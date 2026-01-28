@@ -1,14 +1,20 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import ProductCard from '../../components/ProductCard/ProductCard';
+import { ProductCard } from '../../components/ProductCard/ProductCard';
+import type { Product } from '../../types';
 import './Category.css';
 
 const Category: React.FC = () => {
   const { category } = useParams();
 
+  const handleAddToCart = (product: Product) => {
+    console.log('Added to cart:', product);
+    alert(`${product.name} added to cart!`);
+  };
+
   const products = [
     {
-      id: 1,
+      id: '1',
       name: 'Laptop Pro Max 15"',
       price: 999,
       originalPrice: 1299,
@@ -17,9 +23,11 @@ const Category: React.FC = () => {
       reviews: 234,
       discount: 23,
       inStock: true,
+      description: 'Powerful laptop for professionals',
+      category: 'Laptops',
     },
     {
-      id: 2,
+      id: '2',
       name: 'Gaming Laptop',
       price: 1499,
       originalPrice: 1999,
@@ -28,6 +36,8 @@ const Category: React.FC = () => {
       reviews: 189,
       discount: 25,
       inStock: true,
+      description: 'High-performance gaming laptop',
+      category: 'Laptops',
     },
   ];
 
@@ -51,7 +61,7 @@ const Category: React.FC = () => {
       <div className="container">
         <div className="products-grid">
           {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product.id} product={product} onAddToCart={handleAddToCart} />
           ))}
         </div>
       </div>
