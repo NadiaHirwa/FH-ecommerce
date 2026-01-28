@@ -189,7 +189,7 @@ const Shop: React.FC = () => {
           <div className="filter-group">
             <h4>Category</h4>
             {categories.map((cat) => (
-              <label key={cat}>
+              <label key={cat}> 
                 <input
                   type="radio"
                   name="category"

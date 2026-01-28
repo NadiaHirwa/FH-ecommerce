@@ -1,11 +1,14 @@
 import React, { createContext, useContext, useState, type ReactNode } from 'react';
 
+export type UserRole = 'customer' | 'employee' | 'admin';
+
 interface User {
   id: string;
   email: string;
   phone?: string;
   name: string;
   isVerified: boolean;
+  role: UserRole;
 }
 
 interface AuthContextType {
@@ -38,11 +41,17 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 800));
 
+    // Determine role based on email for demo purposes
+    let role: UserRole = 'customer';
+    if (email.includes('employee')) role = 'employee';
+    if (email.includes('admin')) role = 'admin';
+
     const mockUser: User = {
       id: '1',
       email,
-      name: 'John Doe',
+      name: email.includes('admin') ? 'Admin User' : email.includes('employee') ? 'John Employee' : 'John Doe',
       isVerified: true,
+      role,
     };
 
     setUser(mockUser);
@@ -64,6 +73,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       phone,
       name,
       isVerified: false,
+      role: 'customer',
     };
 
     setUser(mockUser);
