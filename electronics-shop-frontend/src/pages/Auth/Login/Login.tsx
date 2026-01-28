@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { FormInput } from '../../components/FormInput/FormInput';
-import { useAuth } from '../../context/AuthContext';
-import './Login.css';
+import { FormInput } from '../../../components/FormInput/FormInput';
+import { useAuth } from '../../../context/AuthContext';
+import '../Auth.css';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();

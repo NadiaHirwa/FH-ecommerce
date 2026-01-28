@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { FormInput } from '../../components/FormInput/FormInput';
-import { useAuth } from '../../context/AuthContext';
-import './Auth.css';
+import { FormInput } from '../../../components/FormInput/FormInput';
+import { useAuth } from '../../../context/AuthContext';
+import '../Auth.css';
 
 const ResetPassword: React.FC = () => {
   const navigate = useNavigate();
