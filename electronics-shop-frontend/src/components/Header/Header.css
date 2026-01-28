@@ -22,19 +22,20 @@
 /* Logo */
 .logo a {
   text-decoration: none;
+  display: flex;
+  align-items: center;
 }
 
-.logo h1 {
-  margin: 0;
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #1e40af;
-  font-family: 'Inter', sans-serif;
-  transition: transform 0.3s ease;
+.logo-img {
+  height: 50px;
+  width: auto;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.logo h1:hover {
+.logo-img:hover {
   transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(30, 64, 175, 0.2);
 }
 
 /* Navigation */

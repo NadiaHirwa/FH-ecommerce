@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import logo from '../../assets/logo.jpg';
 import './Header.css';
 
 interface HeaderProps {
@@ -32,7 +33,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Logo - Top Left */}
         <div className="logo">
           <a href="/" title="Go to homepage">
-            <h1>⚡ ElectroShop</h1>
+            <img src={logo} alt="ElectroShop" className="logo-img" />
           </a>
         </div>
 

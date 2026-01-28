@@ -8,6 +8,7 @@ import keyboard from '../../assets/categories/keyboard-mouse.jpg';
 import headphones from '../../assets/categories/headphones.jpg';
 import storage from '../../assets/categories/storage.jpg';
 import accessory from '../../assets/categories/accessory.jpg';
+import heroBanner from '../../assets/hero-banner.png';
 import './Home.css';
 
 const Home: React.FC = () => {
@@ -128,7 +129,7 @@ const Home: React.FC = () => {
   return (
     <div className="home-page">
       {/* Hero Banner */}
-      <section className="hero-banner">
+      <section className="hero-banner" style={{ backgroundImage: `url(${heroBanner})` }}>
         <div className="hero-content">
           <h1>Welcome to ElectroShop ⚡</h1>
           <p>Discover the Latest Electronics & Tech Gadgets</p>
