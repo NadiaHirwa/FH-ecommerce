@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../EmployeeDashboard.css';
+import './EmployeeDashboard.css';
 
 export const ChangePassword: React.FC = () => {
   const [formData, setFormData] = useState({

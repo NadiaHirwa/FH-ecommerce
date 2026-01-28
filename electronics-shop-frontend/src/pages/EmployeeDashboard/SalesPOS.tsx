@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../EmployeeDashboard.css';
+import './EmployeeDashboard.css';
 
 export const SalesPOS: React.FC = () => {
   const [cartItems, setCartItems] = useState<

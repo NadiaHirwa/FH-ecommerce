@@ -30,7 +30,7 @@ import ForgotPassword from './pages/Auth/ForgotPassword/ForgotPassword';
 import ResetPassword from './pages/Auth/ResetPassword/ResetPassword';
 import VerifyEmail from './pages/Auth/VerifyEmail/VerifyEmail';
 
-// Dashboard Pages
+// Customer Dashboard Pages
 import { DashboardLayout } from './pages/Dashboard/DashboardLayout';
 import Overview from './pages/Dashboard/Overview/Overview';
 import MyOrders from './pages/Dashboard/MyOrders/MyOrders';
@@ -39,6 +39,17 @@ import SavedAddresses from './pages/Dashboard/SavedAddresses/SavedAddresses';
 import ProfileSettings from './pages/Dashboard/ProfileSettings/ProfileSettings';
 import ChangePassword from './pages/Dashboard/ChangePassword/ChangePassword';
 import Support from './pages/Dashboard/Support/Support';
+
+// Employee Dashboard Pages
+import { EmployeeDashboardLayout } from './pages/EmployeeDashboard/EmployeeDashboardLayout';
+import { EmployeeOverview } from './pages/EmployeeDashboard/Overview';
+import { AssignedOrders } from './pages/EmployeeDashboard/AssignedOrders';
+import { Inventory } from './pages/EmployeeDashboard/Inventory';
+import { SalesPOS } from './pages/EmployeeDashboard/SalesPOS';
+import { Transactions } from './pages/EmployeeDashboard/Transactions';
+import { CustomerMessages } from './pages/EmployeeDashboard/CustomerMessages';
+import { EmployeeProfile } from './pages/EmployeeDashboard/EmployeeProfile';
+import { ChangePassword as EmployeeChangePassword } from './pages/EmployeeDashboard/ChangePassword';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -77,7 +88,7 @@ function App() {
               <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/verify-email" element={<VerifyEmail />} />
               
-              {/* Dashboard Routes */}
+              {/* Customer Dashboard Routes */}
               <Route path="/dashboard" element={<DashboardLayout><Overview /></DashboardLayout>} />
               <Route path="/dashboard/orders" element={<DashboardLayout><MyOrders /></DashboardLayout>} />
               <Route path="/dashboard/wishlist" element={<DashboardLayout><Wishlist /></DashboardLayout>} />
@@ -85,6 +96,16 @@ function App() {
               <Route path="/dashboard/profile" element={<DashboardLayout><ProfileSettings /></DashboardLayout>} />
               <Route path="/dashboard/password" element={<DashboardLayout><ChangePassword /></DashboardLayout>} />
               <Route path="/dashboard/support" element={<DashboardLayout><Support /></DashboardLayout>} />
+              
+              {/* Employee Dashboard Routes */}
+              <Route path="/employee-dashboard" element={<EmployeeDashboardLayout><EmployeeOverview /></EmployeeDashboardLayout>} />
+              <Route path="/employee-dashboard/orders" element={<EmployeeDashboardLayout><AssignedOrders /></EmployeeDashboardLayout>} />
+              <Route path="/employee-dashboard/inventory" element={<EmployeeDashboardLayout><Inventory /></EmployeeDashboardLayout>} />
+              <Route path="/employee-dashboard/sales" element={<EmployeeDashboardLayout><SalesPOS /></EmployeeDashboardLayout>} />
+              <Route path="/employee-dashboard/transactions" element={<EmployeeDashboardLayout><Transactions /></EmployeeDashboardLayout>} />
+              <Route path="/employee-dashboard/messages" element={<EmployeeDashboardLayout><CustomerMessages /></EmployeeDashboardLayout>} />
+              <Route path="/employee-dashboard/profile" element={<EmployeeDashboardLayout><EmployeeProfile /></EmployeeDashboardLayout>} />
+              <Route path="/employee-dashboard/password" element={<EmployeeDashboardLayout><EmployeeChangePassword /></EmployeeDashboardLayout>} />
               
               {/* Cart Routes */}
               <Route path="/cart" element={<Cart />} />

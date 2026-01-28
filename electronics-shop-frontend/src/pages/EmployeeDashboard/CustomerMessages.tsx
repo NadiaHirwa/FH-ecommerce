@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../EmployeeDashboard.css';
+import './EmployeeDashboard.css';
 
 export const CustomerMessages: React.FC = () => {
   const [messages, setMessages] = useState([

@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
-import { useNavigate, Outlet } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import './EmployeeDashboardLayout.css';
 
-export const EmployeeDashboardLayout: React.FC = () => {
+interface EmployeeDashboardLayoutProps {
+  children: React.ReactNode;
+}
+
+export const EmployeeDashboardLayout: React.FC<EmployeeDashboardLayoutProps> = ({ children }) => {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -83,7 +87,7 @@ export const EmployeeDashboardLayout: React.FC = () => {
 
         {/* Page Content */}
         <main className="employee-main">
-          <Outlet />
+          {children}
         </main>
       </div>
     </div>
