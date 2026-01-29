@@ -61,6 +61,7 @@ import { EmployeesAdmin } from './pages/AdminDashboard/EmployeesAdmin';
 import { AdminSettings } from './pages/AdminDashboard/Settings';
 import { CategoryManagement } from './pages/AdminDashboard/CategoryManagement';
 import { BrandManagement } from './pages/AdminDashboard/BrandManagement';
+import { CustomerManagement } from './pages/AdminDashboard/CustomersAdmin';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -127,6 +128,7 @@ function App() {
               <Route path="/admin/orders" element={<AdminDashboardLayout><OrdersAdmin /></AdminDashboardLayout>} />
               <Route path="/admin/transactions" element={<AdminDashboardLayout><TransactionsAdmin /></AdminDashboardLayout>} />
               <Route path="/admin/employees" element={<AdminDashboardLayout><EmployeesAdmin /></AdminDashboardLayout>} />
+              <Route path="/admin/customers" element={<AdminDashboardLayout><CustomerManagement /></AdminDashboardLayout>} />
               <Route path="/admin/settings" element={<AdminDashboardLayout><AdminSettings /></AdminDashboardLayout>} />
               
               {/* Cart Routes */}
