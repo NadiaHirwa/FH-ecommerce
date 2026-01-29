@@ -34,6 +34,8 @@ export const TransactionsAdmin: React.FC = () => {
       total: o.total || o.amount || 0,
       method: o.paymentMethod || 'online',
       source: 'order' as const,
+      employeeId: undefined,
+      employeeName: undefined,
       details: o,
     }));
 
@@ -114,7 +116,6 @@ export const TransactionsAdmin: React.FC = () => {
   const handleRefund = (t: Tx) => {
     if (!confirm('Are you sure you want to refund this transaction?')) return;
     try {
-      const { user } = useAuth();
       const refundTx = {
         id: `refund-${Date.now()}`,
         date: new Date().toISOString(),
@@ -143,8 +144,8 @@ export const TransactionsAdmin: React.FC = () => {
       }
 
       logAuditEntry('transaction_refunded', t.id, 'transaction', {
-        userId: user?.id,
-        userName: user?.name,
+        userId: auth.user?.id,
+        userName: auth.user?.name,
         changes: { refundId: refundTx.id, originalAmount: t.total },
       });
 
