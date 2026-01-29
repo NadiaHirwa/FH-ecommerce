@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useAuth } from '../../context/AuthContext';
 import './EmployeeDashboard.css';
 
 export const SalesPOS: React.FC = () => {
+  const auth = useAuth();
   const [cartItems, setCartItems] = useState<
     Array<{ id: number; name: string; price: number; quantity: number }>
   >([]);
@@ -49,9 +51,50 @@ export const SalesPOS: React.FC = () => {
       alert('Add items to cart first!');
       return;
     }
-    alert(
-      `✅ Offline sale recorded!\nTotal: $${total.toFixed(2)}\nPayment: ${paymentMethod}`
-    );
+    // Persist transaction to localStorage as admin_transactions and admin_orders
+    const tx = {
+      id: `tx-${Date.now()}`,
+      date: new Date().toISOString(),
+      total,
+      paymentMethod,
+      items: cartItems,
+      notes,
+      source: 'offline',
+    } as any;
+
+    try {
+      const prev = localStorage.getItem('admin_transactions');
+      const arr = prev ? JSON.parse(prev) : [];
+      // attach employee info if available
+      const { user } = auth;
+      if (user) {
+        tx.employeeId = user.id;
+        tx.employeeName = user.name;
+      }
+      arr.unshift(tx);
+      localStorage.setItem('admin_transactions', JSON.stringify(arr));
+
+      // also add a lightweight order record so reports/customers see it
+      const order = {
+        id: `ord-${Date.now()}`,
+        date: tx.date,
+        total: tx.total,
+        paymentMethod: tx.paymentMethod,
+        status: 'completed',
+        items: tx.items,
+        customer: 'Walk-in',
+      };
+      const prevO = localStorage.getItem('admin_orders');
+      const oarr = prevO ? JSON.parse(prevO) : [];
+      oarr.unshift(order);
+      localStorage.setItem('admin_orders', JSON.stringify(oarr));
+
+      alert(`✅ Offline sale recorded! Total: $${total.toFixed(2)} (${paymentMethod})`);
+    } catch (err) {
+      console.error('Save transaction failed', err);
+      alert('Failed to save transaction');
+    }
+
     setCartItems([]);
     setPaymentMethod('cash');
     setNotes('');
