@@ -1,4 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { useAuth } from '../../context/AuthContext';
+import { logAuditEntry } from '../../utils/auditLog';
 import './AdminDashboardLayout.css';
 
 type Tx = {
@@ -13,6 +15,7 @@ type Tx = {
 };
 
 export const TransactionsAdmin: React.FC = () => {
+  const auth = useAuth();
   const [orders, setOrders] = useState<Tx[]>([]);
   const [transactions, setTransactions] = useState<Tx[]>([]);
   const [filter, setFilter] = useState({ method: 'all', from: '', to: '' });
@@ -99,6 +102,11 @@ export const TransactionsAdmin: React.FC = () => {
         localStorage.setItem('admin_orders', JSON.stringify(oarr));
       }
     }
+    logAuditEntry('transaction_edited', showEdit.id, 'transaction', {
+      userId: auth.user?.id,
+      userName: auth.user?.name,
+      changes: { totalOld: showEdit.total, totalNew: editForm.amount },
+    });
     setShowEdit(null);
     window.location.reload();
   };
@@ -106,6 +114,7 @@ export const TransactionsAdmin: React.FC = () => {
   const handleRefund = (t: Tx) => {
     if (!confirm('Are you sure you want to refund this transaction?')) return;
     try {
+      const { user } = useAuth();
       const refundTx = {
         id: `refund-${Date.now()}`,
         date: new Date().toISOString(),
@@ -132,6 +141,12 @@ export const TransactionsAdmin: React.FC = () => {
           localStorage.setItem('admin_orders', JSON.stringify(oarr));
         }
       }
+
+      logAuditEntry('transaction_refunded', t.id, 'transaction', {
+        userId: user?.id,
+        userName: user?.name,
+        changes: { refundId: refundTx.id, originalAmount: t.total },
+      });
 
       alert('Refund recorded');
       window.location.reload();

@@ -24,9 +24,11 @@ export const AdminDashboardLayout: React.FC<Props> = ({ children }) => {
     { label: 'Inventory', path: '/admin/inventory', icon: '📦' },
     { label: 'Orders', path: '/admin/orders', icon: '🧾' },
     { label: 'Transactions', path: '/admin/transactions', icon: '💳' },
+    { label: 'Reports', path: '/admin/reports', icon: '📈' },
     { label: 'Customers', path: '/admin/customers', icon: '👥' },
     { label: 'Employees', path: '/admin/employees', icon: '👷' },
     { label: 'Settings', path: '/admin/settings', icon: '⚙️' },
+    { label: 'Audit Logs', path: '/admin/audit-logs', icon: '📝' },
   ];
 
   const handleLogout = () => {
