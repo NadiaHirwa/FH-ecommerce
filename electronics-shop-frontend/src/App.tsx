@@ -50,6 +50,15 @@ import { Transactions } from './pages/EmployeeDashboard/Transactions';
 import { CustomerMessages } from './pages/EmployeeDashboard/CustomerMessages';
 import { EmployeeProfile } from './pages/EmployeeDashboard/EmployeeProfile';
 import { ChangePassword as EmployeeChangePassword } from './pages/EmployeeDashboard/ChangePassword';
+// Admin Dashboard Pages
+import { AdminDashboardLayout } from './pages/AdminDashboard/AdminDashboardLayout';
+import { AdminOverview } from './pages/AdminDashboard/Overview';
+import { ProductManagement } from './pages/AdminDashboard/ProductManagement';
+import { InventoryAdmin } from './pages/AdminDashboard/InventoryAdmin';
+import { TransactionsAdmin } from './pages/AdminDashboard/TransactionsAdmin';
+import { OrdersAdmin } from './pages/AdminDashboard/OrdersAdmin';
+import { EmployeesAdmin } from './pages/AdminDashboard/EmployeesAdmin';
+import { AdminSettings } from './pages/AdminDashboard/Settings';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -106,6 +115,15 @@ function App() {
               <Route path="/employee-dashboard/messages" element={<EmployeeDashboardLayout><CustomerMessages /></EmployeeDashboardLayout>} />
               <Route path="/employee-dashboard/profile" element={<EmployeeDashboardLayout><EmployeeProfile /></EmployeeDashboardLayout>} />
               <Route path="/employee-dashboard/password" element={<EmployeeDashboardLayout><EmployeeChangePassword /></EmployeeDashboardLayout>} />
+              
+              {/* Admin Dashboard Routes */}
+              <Route path="/admin" element={<AdminDashboardLayout><AdminOverview /></AdminDashboardLayout>} />
+              <Route path="/admin/products" element={<AdminDashboardLayout><ProductManagement /></AdminDashboardLayout>} />
+              <Route path="/admin/inventory" element={<AdminDashboardLayout><InventoryAdmin /></AdminDashboardLayout>} />
+              <Route path="/admin/orders" element={<AdminDashboardLayout><OrdersAdmin /></AdminDashboardLayout>} />
+              <Route path="/admin/transactions" element={<AdminDashboardLayout><TransactionsAdmin /></AdminDashboardLayout>} />
+              <Route path="/admin/employees" element={<AdminDashboardLayout><EmployeesAdmin /></AdminDashboardLayout>} />
+              <Route path="/admin/settings" element={<AdminDashboardLayout><AdminSettings /></AdminDashboardLayout>} />
               
               {/* Cart Routes */}
               <Route path="/cart" element={<Cart />} />
