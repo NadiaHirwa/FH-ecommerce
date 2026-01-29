@@ -12,10 +12,48 @@ export const AdminDashboardLayout: React.FC<Props> = ({ children }) => {
   const { user, logout } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
-  // Only allow admin
-  if (!user || user.role !== 'admin') {
-    navigate('/login');
-    return null;
+  // Debug: log current user state
+  React.useEffect(() => {
+    console.log('AdminDashboardLayout - Current user:', user);
+    console.log('User role:', user?.role);
+  }, [user]);
+
+  // TEMPORARY: Allow access for testing - remove after auth is fixed
+  if (!user) {
+    console.warn('No user logged in. Showing test panel...');
+    return (
+      <div style={{padding: 20, textAlign: 'center'}}>
+        <h2>Admin Dashboard</h2>
+        <p style={{color: '#666', marginBottom: 20}}>You are not logged in.</p>
+        <button 
+          onClick={() => navigate('/login')}
+          style={{padding: '10px 20px', background: '#0066cc', color: 'white', border: 'none', borderRadius: 4, cursor: 'pointer'}}
+        >
+          Go to Login Page
+        </button>
+        <div style={{marginTop: 30, color: '#999', fontSize: 12}}>
+          <p>Debug: User state = {JSON.stringify(user)}</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Check role
+  if (user.role !== 'admin') {
+    console.warn('User is not admin. Role:', user.role);
+    return (
+      <div style={{padding: 20, textAlign: 'center'}}>
+        <h2>Access Denied</h2>
+        <p style={{color: 'red'}}>You need admin role to access this page.</p>
+        <p style={{color: '#666'}}>Your current role: <strong>{user.role}</strong></p>
+        <button 
+          onClick={() => { logout(); navigate('/login'); }}
+          style={{padding: '10px 20px', background: '#cc0000', color: 'white', border: 'none', borderRadius: 4, cursor: 'pointer'}}
+        >
+          Logout & Login Again with Admin Email
+        </button>
+      </div>
+    );
   }
 
   const sections = [
