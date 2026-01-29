@@ -30,6 +30,13 @@ import ForgotPassword from './pages/Auth/ForgotPassword/ForgotPassword';
 import ResetPassword from './pages/Auth/ResetPassword/ResetPassword';
 import VerifyEmail from './pages/Auth/VerifyEmail/VerifyEmail';
 
+// Error & System Pages
+import NotFound from './pages/errors/NotFound';
+import Unauthorized from './pages/errors/Unauthorized';
+import ServerError from './pages/errors/ServerError';
+import Maintenance from './pages/errors/Maintenance';
+import SessionExpired from './pages/errors/SessionExpired';
+
 // Customer Dashboard Pages
 import { DashboardLayout } from './pages/Dashboard/DashboardLayout';
 import Overview from './pages/Dashboard/Overview/Overview';
@@ -75,90 +82,96 @@ function App() {
       <CartProvider>
         <Router>
           <div className="app-wrapper">
-            <Header 
-              cartItemsCount={0} 
-              onSearchChange={setSearchQuery} 
-              onCartClick={() => window.location.href = '/cart'} 
-              onAccountClick={() => setIsAccountMenuOpen(!isAccountMenuOpen)} 
+            <Header
+              cartItemsCount={0}
+              onSearchChange={setSearchQuery}
+              onCartClick={() => window.location.href = '/cart'}
+              onAccountClick={() => setIsAccountMenuOpen(!isAccountMenuOpen)}
             />
-            
-            <AccountMenu 
-              isOpen={isAccountMenuOpen} 
-              onClose={() => setIsAccountMenuOpen(false)} 
-            />
-            
-            <main className="main-content">
-            <Routes>
-              {/* Public Routes */}
-              <Route path="/" element={<Home />} />
-              <Route path="/shop" element={<Shop />} />
-              <Route path="/shop/category/:category" element={<Category />} />
-              <Route path="/product/:id" element={<ProductDetail />} />
-              <Route path="/search" element={<SearchResults query={searchQuery} />} />
-              
-              {/* Auth Routes */}
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
-              <Route path="/reset-password" element={<ResetPassword />} />
-              <Route path="/verify-email" element={<VerifyEmail />} />
-              
-              {/* Customer Dashboard Routes */}
-              <Route path="/dashboard" element={<DashboardLayout><Overview /></DashboardLayout>} />
-              <Route path="/dashboard/orders" element={<DashboardLayout><MyOrders /></DashboardLayout>} />
-              <Route path="/dashboard/wishlist" element={<DashboardLayout><Wishlist /></DashboardLayout>} />
-              <Route path="/dashboard/addresses" element={<DashboardLayout><SavedAddresses /></DashboardLayout>} />
-              <Route path="/dashboard/profile" element={<DashboardLayout><ProfileSettings /></DashboardLayout>} />
-              <Route path="/dashboard/password" element={<DashboardLayout><ChangePassword /></DashboardLayout>} />
-              <Route path="/dashboard/support" element={<DashboardLayout><Support /></DashboardLayout>} />
-              
-              {/* Employee Dashboard Routes */}
-              <Route path="/employee-dashboard" element={<EmployeeDashboardLayout><EmployeeOverview /></EmployeeDashboardLayout>} />
-              <Route path="/employee-dashboard/orders" element={<EmployeeDashboardLayout><AssignedOrders /></EmployeeDashboardLayout>} />
-              <Route path="/employee-dashboard/inventory" element={<EmployeeDashboardLayout><Inventory /></EmployeeDashboardLayout>} />
-              <Route path="/employee-dashboard/sales" element={<EmployeeDashboardLayout><SalesPOS /></EmployeeDashboardLayout>} />
-              <Route path="/employee-dashboard/transactions" element={<EmployeeDashboardLayout><Transactions /></EmployeeDashboardLayout>} />
-              <Route path="/employee-dashboard/messages" element={<EmployeeDashboardLayout><CustomerMessages /></EmployeeDashboardLayout>} />
-              <Route path="/employee-dashboard/profile" element={<EmployeeDashboardLayout><EmployeeProfile /></EmployeeDashboardLayout>} />
-              <Route path="/employee-dashboard/password" element={<EmployeeDashboardLayout><EmployeeChangePassword /></EmployeeDashboardLayout>} />
-              
-              {/* Admin Dashboard Routes */}
-              <Route path="/admin" element={<AdminDashboardLayout><AdminOverview /></AdminDashboardLayout>} />
-              <Route path="/admin/products" element={<AdminDashboardLayout><ProductManagement /></AdminDashboardLayout>} />
-              <Route path="/admin/inventory" element={<AdminDashboardLayout><InventoryAdmin /></AdminDashboardLayout>} />
-              <Route path="/admin/categories" element={<AdminDashboardLayout><CategoryManagement /></AdminDashboardLayout>} />
-              <Route path="/admin/brands" element={<AdminDashboardLayout><BrandManagement /></AdminDashboardLayout>} />
-              <Route path="/admin/promotions" element={<AdminDashboardLayout><PromotionsAdmin /></AdminDashboardLayout>} />
-              <Route path="/admin/reports" element={<AdminDashboardLayout><ReportsAdmin /></AdminDashboardLayout>} />
-              <Route path="/admin/audit-logs" element={<AdminDashboardLayout><AuditLogsAdmin /></AdminDashboardLayout>} />
-              <Route path="/admin/orders" element={<AdminDashboardLayout><OrdersAdmin /></AdminDashboardLayout>} />
-              <Route path="/admin/transactions" element={<AdminDashboardLayout><TransactionsAdmin /></AdminDashboardLayout>} />
-              <Route path="/admin/employees" element={<AdminDashboardLayout><EmployeesAdmin /></AdminDashboardLayout>} />
-              <Route path="/admin/customers" element={<AdminDashboardLayout><CustomerManagement /></AdminDashboardLayout>} />
-              <Route path="/admin/settings" element={<AdminDashboardLayout><AdminSettings /></AdminDashboardLayout>} />
-              
-              {/* Cart Routes */}
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/checkout" element={<Checkout />} />
-              <Route path="/order-success" element={<OrderSuccess />} />
-              <Route path="/track-order" element={<TrackOrder />} />
-              
-              {/* Info Routes */}
-              <Route path="/about" element={<AboutUs />} />
-              <Route path="/contact" element={<ContactUs />} />
-              <Route path="/faq" element={<FAQ />} />
-              <Route path="/privacy" element={<PrivacyPolicy />} />
-              <Route path="/terms" element={<Terms />} />
-              <Route path="/returns" element={<ReturnsWarranty />} />
-              
-              {/* Catch-all */}
-              <Route path="*" element={<Home />} />
-            </Routes>
-          </main>
 
-          <Footer />
-        </div>
-      </Router>
+            <AccountMenu
+              isOpen={isAccountMenuOpen}
+              onClose={() => setIsAccountMenuOpen(false)}
+            />
+
+            <main className="main-content">
+              <Routes>
+                {/* Public Routes */}
+                <Route path="/" element={<Home />} />
+                <Route path="/shop" element={<Shop />} />
+                <Route path="/shop/category/:category" element={<Category />} />
+                <Route path="/product/:id" element={<ProductDetail />} />
+                <Route path="/search" element={<SearchResults query={searchQuery} />} />
+
+                {/* Auth Routes */}
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
+                <Route path="/verify-email" element={<VerifyEmail />} />
+
+                {/* Customer Dashboard Routes */}
+                <Route path="/dashboard" element={<DashboardLayout><Overview /></DashboardLayout>} />
+                <Route path="/dashboard/orders" element={<DashboardLayout><MyOrders /></DashboardLayout>} />
+                <Route path="/dashboard/wishlist" element={<DashboardLayout><Wishlist /></DashboardLayout>} />
+                <Route path="/dashboard/addresses" element={<DashboardLayout><SavedAddresses /></DashboardLayout>} />
+                <Route path="/dashboard/profile" element={<DashboardLayout><ProfileSettings /></DashboardLayout>} />
+                <Route path="/dashboard/password" element={<DashboardLayout><ChangePassword /></DashboardLayout>} />
+                <Route path="/dashboard/support" element={<DashboardLayout><Support /></DashboardLayout>} />
+
+                {/* Employee Dashboard Routes */}
+                <Route path="/employee-dashboard" element={<EmployeeDashboardLayout><EmployeeOverview /></EmployeeDashboardLayout>} />
+                <Route path="/employee-dashboard/orders" element={<EmployeeDashboardLayout><AssignedOrders /></EmployeeDashboardLayout>} />
+                <Route path="/employee-dashboard/inventory" element={<EmployeeDashboardLayout><Inventory /></EmployeeDashboardLayout>} />
+                <Route path="/employee-dashboard/sales" element={<EmployeeDashboardLayout><SalesPOS /></EmployeeDashboardLayout>} />
+                <Route path="/employee-dashboard/transactions" element={<EmployeeDashboardLayout><Transactions /></EmployeeDashboardLayout>} />
+                <Route path="/employee-dashboard/messages" element={<EmployeeDashboardLayout><CustomerMessages /></EmployeeDashboardLayout>} />
+                <Route path="/employee-dashboard/profile" element={<EmployeeDashboardLayout><EmployeeProfile /></EmployeeDashboardLayout>} />
+                <Route path="/employee-dashboard/password" element={<EmployeeDashboardLayout><EmployeeChangePassword /></EmployeeDashboardLayout>} />
+
+                {/* Admin Dashboard Routes */}
+                <Route path="/admin" element={<AdminDashboardLayout><AdminOverview /></AdminDashboardLayout>} />
+                <Route path="/admin/products" element={<AdminDashboardLayout><ProductManagement /></AdminDashboardLayout>} />
+                <Route path="/admin/inventory" element={<AdminDashboardLayout><InventoryAdmin /></AdminDashboardLayout>} />
+                <Route path="/admin/categories" element={<AdminDashboardLayout><CategoryManagement /></AdminDashboardLayout>} />
+                <Route path="/admin/brands" element={<AdminDashboardLayout><BrandManagement /></AdminDashboardLayout>} />
+                <Route path="/admin/promotions" element={<AdminDashboardLayout><PromotionsAdmin /></AdminDashboardLayout>} />
+                <Route path="/admin/reports" element={<AdminDashboardLayout><ReportsAdmin /></AdminDashboardLayout>} />
+                <Route path="/admin/audit-logs" element={<AdminDashboardLayout><AuditLogsAdmin /></AdminDashboardLayout>} />
+                <Route path="/admin/orders" element={<AdminDashboardLayout><OrdersAdmin /></AdminDashboardLayout>} />
+                <Route path="/admin/transactions" element={<AdminDashboardLayout><TransactionsAdmin /></AdminDashboardLayout>} />
+                <Route path="/admin/employees" element={<AdminDashboardLayout><EmployeesAdmin /></AdminDashboardLayout>} />
+                <Route path="/admin/customers" element={<AdminDashboardLayout><CustomerManagement /></AdminDashboardLayout>} />
+                <Route path="/admin/settings" element={<AdminDashboardLayout><AdminSettings /></AdminDashboardLayout>} />
+
+                {/* Cart Routes */}
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/checkout" element={<Checkout />} />
+                <Route path="/order-success" element={<OrderSuccess />} />
+                <Route path="/track-order" element={<TrackOrder />} />
+
+                {/* Info Routes */}
+                <Route path="/about" element={<AboutUs />} />
+                <Route path="/contact" element={<ContactUs />} />
+                <Route path="/faq" element={<FAQ />} />
+                <Route path="/privacy" element={<PrivacyPolicy />} />
+                <Route path="/terms" element={<Terms />} />
+                <Route path="/returns" element={<ReturnsWarranty />} />
+
+                {/* System Routes */}
+                <Route path="/unauthorized" element={<Unauthorized />} />
+                <Route path="/server-error" element={<ServerError />} />
+                <Route path="/maintenance" element={<Maintenance />} />
+                <Route path="/session-expired" element={<SessionExpired />} />
+
+                {/* Catch-all */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </main>
+
+            <Footer />
+          </div>
+        </Router>
       </CartProvider>
     </AuthProvider>
   );

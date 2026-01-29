@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import './EmployeeDashboardLayout.css';
 
@@ -12,10 +12,14 @@ export const EmployeeDashboardLayout: React.FC<EmployeeDashboardLayoutProps> = (
   const { user, logout } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
+  // Redirect if not logged in
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
   // Redirect if not employee or admin
-  if (!user || (user.role !== 'employee' && user.role !== 'admin')) {
-    navigate('/login');
-    return null;
+  if (user.role !== 'employee' && user.role !== 'admin') {
+    return <Navigate to="/unauthorized" replace />;
   }
 
   const handleLogout = () => {
