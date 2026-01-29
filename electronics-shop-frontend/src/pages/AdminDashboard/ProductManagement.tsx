@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './AdminDashboardLayout.css';
+import { uploadImage } from '../../utils/imageUpload';
 
 type Product = {
   id: string;
@@ -22,7 +23,10 @@ export const ProductManagement: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState<Product | null>(null);
-  const [form, setForm] = useState({ name: '', category: '', brand: '', price: '', stock: '', image: '' });
+  const [form, setForm] = useState({ name: '', category: '', brand: '', price: '', stock: '', image: '', customCategory: '', customBrand: '' });
+  const [categories, setCategories] = useState<string[]>([]);
+  const [brands, setBrands] = useState<string[]>([]);
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     const stored = localStorage.getItem('admin_products');
@@ -31,10 +35,24 @@ export const ProductManagement: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    const cRaw = localStorage.getItem('admin_categories');
+    const bRaw = localStorage.getItem('admin_brands');
+    try {
+      const cs = cRaw ? JSON.parse(cRaw) : [];
+      const bs = bRaw ? JSON.parse(bRaw) : [];
+      setCategories(cs.map((x: any) => x.name).filter(Boolean));
+      setBrands(bs.map((x: any) => x.name).filter(Boolean));
+    } catch (e) {
+      setCategories([]);
+      setBrands([]);
+    }
+  }, []);
+
+  useEffect(() => {
     localStorage.setItem('admin_products', JSON.stringify(products));
   }, [products]);
 
-  const resetForm = () => setForm({ name: '', category: '', brand: '', price: '', stock: '', image: '' });
+  const resetForm = () => setForm({ name: '', category: '', brand: '', price: '', stock: '', image: '', customCategory: '', customBrand: '' });
 
   const openCreate = () => {
     resetForm();
@@ -44,7 +62,7 @@ export const ProductManagement: React.FC = () => {
 
   const openEdit = (p: Product) => {
     setEditing(p);
-    setForm({ name: p.name, category: p.category, brand: p.brand || '', price: String(p.price), stock: String(p.stock), image: p.image || '' });
+    setForm({ name: p.name, category: p.category, brand: p.brand || '', price: String(p.price), stock: String(p.stock), image: p.image || '', customCategory: '', customBrand: '' });
     setShowForm(true);
   };
 
@@ -131,8 +149,22 @@ export const ProductManagement: React.FC = () => {
             <h3>{editing ? 'Edit Product' : 'Add Product'}</h3>
             <form onSubmit={save} className="form-group">
               <input value={form.name} onChange={(e) => setForm({...form, name: e.target.value})} placeholder="Product name" required />
-              <input value={form.category} onChange={(e) => setForm({...form, category: e.target.value})} placeholder="Category" required />
-              <input value={form.brand} onChange={(e) => setForm({...form, brand: e.target.value})} placeholder="Brand (optional)" />
+
+              <label style={{display:'block',marginTop:6}}>Category</label>
+              <select value={form.category} onChange={(e) => setForm({...form, category: e.target.value})}>
+                <option value="">-- Select category --</option>
+                {categories.map((c) => <option key={c} value={c}>{c}</option>)}
+                <option value="__other">Other / New</option>
+              </select>
+              <input value={form.customCategory} onChange={(e) => setForm({...form, customCategory: e.target.value})} placeholder="Or enter new category (optional)" />
+
+              <label style={{display:'block',marginTop:6}}>Brand (optional)</label>
+              <select value={form.brand} onChange={(e) => setForm({...form, brand: e.target.value})}>
+                <option value="">-- Select brand --</option>
+                {brands.map((b) => <option key={b} value={b}>{b}</option>)}
+                <option value="__other">Other / New</option>
+              </select>
+              <input value={form.customBrand} onChange={(e) => setForm({...form, customBrand: e.target.value})} placeholder="Or enter new brand (optional)" />
               <input value={form.price} onChange={(e) => setForm({...form, price: e.target.value})} placeholder="Price" type="number" step="0.01" required />
               <input value={form.stock} onChange={(e) => setForm({...form, stock: e.target.value})} placeholder="Stock quantity" type="number" required />
               <label style={{display:'block',marginTop:8,marginBottom:6}}>Image (optional, JPG/PNG, &lt;2MB)</label>
@@ -140,18 +172,18 @@ export const ProductManagement: React.FC = () => {
                 const file = e.target.files && e.target.files[0];
                 if (!file) return;
                 if (!/image\/(jpeg|png|webp|gif)/.test(file.type)) { alert('Only JPG/PNG/WebP/GIF allowed'); return; }
-                if (file.size > 2 * 1024 * 1024) { alert('Image must be smaller than 2MB'); return; }
-                const dataUrl = await new Promise<string>((res, rej) => {
-                  const reader = new FileReader();
-                  reader.onload = () => res(String(reader.result));
-                  reader.onerror = rej;
-                  reader.readAsDataURL(file);
-                });
-                setForm({...form, image: dataUrl});
+                if (file.size > 5 * 1024 * 1024) { alert('Image must be smaller than 5MB'); return; }
+                try {
+                  setUploading(true);
+                  const url = await uploadImage(file);
+                  setForm({...form, image: url});
+                } catch (err: any) {
+                  alert('Image upload failed: ' + (err?.message || err));
+                } finally { setUploading(false); }
               }} />
               {form.image && <img src={form.image} alt="preview" style={{width:80,height:80,objectFit:'cover',marginTop:8,borderRadius:6}} />}
               <div className="form-actions">
-                <button className="btn-primary" type="submit">Save</button>
+                <button className="btn-primary" type="submit" disabled={uploading}>{uploading ? 'Uploading…' : 'Save'}</button>
                 <button type="button" className="btn-secondary" onClick={() => setShowForm(false)}>Cancel</button>
               </div>
             </form>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './AdminDashboardLayout.css';
+import { uploadImage } from '../../utils/imageUpload';
 
 type Brand = {
   id: string;
@@ -14,6 +15,7 @@ export const BrandManagement: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState<Brand | null>(null);
   const [form, setForm] = useState({ name: '', slug: '', image: '' });
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     const stored = localStorage.getItem('admin_brands');
@@ -88,13 +90,12 @@ export const BrandManagement: React.FC = () => {
                 const file = e.target.files && e.target.files[0];
                 if (!file) return;
                 if (!/image\/(jpeg|png|webp|gif)/.test(file.type)) { alert('Only JPG/PNG/WebP/GIF allowed'); return; }
-                if (file.size > 2 * 1024 * 1024) { alert('Image must be smaller than 2MB'); return; }
-                const dataUrl = await new Promise<string>((res, rej) => { const reader = new FileReader(); reader.onload = () => res(String(reader.result)); reader.onerror = rej; reader.readAsDataURL(file); });
-                setForm({...form, image: dataUrl});
+                if (file.size > 5 * 1024 * 1024) { alert('Image must be smaller than 5MB'); return; }
+                try { setUploading(true); const url = await uploadImage(file); setForm({...form, image: url}); } catch (err: any) { alert('Upload failed: ' + (err?.message || err)); } finally { setUploading(false); }
               }} />
               {form.image && <img src={form.image} alt="preview" style={{width:80,height:80,objectFit:'cover',marginTop:8,borderRadius:6}} />}
               <div className="form-actions">
-                <button className="btn-primary" type="submit">Save</button>
+                <button className="btn-primary" type="submit" disabled={uploading}>{uploading ? 'Uploading…' : 'Save'}</button>
                 <button type="button" className="btn-secondary" onClick={() => setShowForm(false)}>Cancel</button>
               </div>
             </form>
