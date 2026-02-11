@@ -1,13 +1,15 @@
 .home-page {
-  background-color: #f3f4f6;
+  min-height: calc(100vh - 200px);
+  padding-bottom: 3rem;
+  background:
+    radial-gradient(circle at top left, #eef2ff 0, #f3f4f6 40%, #fefce8 100%);
 }
 
 /* Hero Banner */
 .hero-banner {
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
-  height: 450px;
+  height: 420px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,6 +17,10 @@
   color: white;
   position: relative;
   overflow: hidden;
+  max-width: 1200px;
+  margin: 1.5rem auto 3rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.35);
 }
 
 .hero-banner::before {

@@ -1,5 +1,8 @@
 .category-page {
-  background-color: #f3f4f6;
+  min-height: calc(100vh - 200px);
+  padding-bottom: 3rem;
+  background:
+    radial-gradient(circle at top left, #eef2ff 0, #f3f4f6 40%, #e0f2fe 100%);
 }
 
 .category-hero {

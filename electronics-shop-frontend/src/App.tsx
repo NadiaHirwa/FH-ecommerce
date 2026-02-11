@@ -7,7 +7,7 @@ import { AuthProvider } from './context/AuthContext';
 import { useState } from 'react';
 
 // Pages
-import Home from './pages/Home/Home';
+import Home from './pages/Home/Home'; 
 import Shop from './pages/Shop/Shop';
 import ProductDetail from './pages/ProductDetail/ProductDetail';
 import Cart from './pages/Cart/Cart';

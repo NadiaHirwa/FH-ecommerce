@@ -1,7 +1,8 @@
 .track-order-page {
-  background-color: #f3f4f6;
-  padding: 2rem 0;
+  padding: 2.5rem 0 3rem;
   min-height: calc(100vh - 200px);
+  background:
+    radial-gradient(circle at top left, #eef2ff 0, #f3f4f6 40%, #dcfce7 100%);
 }
 
 .container {
