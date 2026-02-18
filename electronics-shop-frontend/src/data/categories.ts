@@ -49,9 +49,10 @@ export const CATEGORY_DATA: Record<string, string[]> = {
         'Headphones & Headsets',
         'Earphones',
         'Bluetooth Earbuds',
-        'Speakers',
+        'Speakers', 
         'Microphones',
         'Projectors',
+        'Monitors',
         'Audio Cables & Adapters'
     ],
 

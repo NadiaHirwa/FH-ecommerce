@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ProductCard } from '../../components/ProductCard/ProductCard';
 import type { Product } from '../../types';
 import laptop from '../../assets/categories/laptop.jpg';
@@ -7,10 +7,17 @@ import keyboard from '../../assets/categories/keyboard-mouse.jpg';
 import headphones from '../../assets/categories/headphones.jpg';
 import storage from '../../assets/categories/storage.jpg';
 import accessory from '../../assets/categories/accessory.jpg';
+import { CATEGORY_DATA } from '../../data/categories';
 import './Shop.css';
 
+// Extend Product type locally for the shop data
+interface ShopProduct extends Product {
+  category: string; // Main category
+  subcategory: string; // Sub category
+}
+
 const Shop: React.FC = () => {
-  const [products] = useState([
+  const [products] = useState<ShopProduct[]>([
     {
       id: '1',
       name: 'Laptop Pro Max 15"',
@@ -21,8 +28,8 @@ const Shop: React.FC = () => {
       reviews: 234,
       discount: 23,
       inStock: true,
-      category: 'Laptops',
-      brand: 'Dell',
+      category: 'Computers',
+      subcategory: 'Laptops',
       description: 'Powerful laptop for professionals',
     },
     {
@@ -35,8 +42,8 @@ const Shop: React.FC = () => {
       reviews: 125,
       discount: 35,
       inStock: true,
-      category: 'Accessories',
-      brand: 'Logitech',
+      category: 'Computer Accessories',
+      subcategory: 'Mouse',
       description: 'Ergonomic wireless mouse',
     },
     {
@@ -49,8 +56,8 @@ const Shop: React.FC = () => {
       reviews: 89,
       discount: 20,
       inStock: true,
-      category: 'Accessories',
-      brand: 'Anker',
+      category: 'Computer Accessories',
+      subcategory: 'USB Hubs',
       description: 'Multi-port USB-C hub',
     },
     {
@@ -63,8 +70,8 @@ const Shop: React.FC = () => {
       reviews: 312,
       discount: 25,
       inStock: true,
-      category: 'Accessories',
-      brand: 'Corsair',
+      category: 'Computer Accessories',
+      subcategory: 'Keyboards',
       description: 'High-performance mechanical keyboard',
     },
     {
@@ -77,8 +84,8 @@ const Shop: React.FC = () => {
       reviews: 178,
       discount: 29,
       inStock: true,
-      category: 'Desktops',
-      brand: 'LG',
+      category: 'Audio & Video',
+      subcategory: 'Monitors',
       description: 'Beautiful 4K display monitor',
     },
     {
@@ -91,8 +98,8 @@ const Shop: React.FC = () => {
       reviews: 456,
       discount: 33,
       inStock: true,
-      category: 'Accessories',
-      brand: 'Sony',
+      category: 'Audio & Video',
+      subcategory: 'Headphones & Headsets',
       description: 'Premium wireless headphones',
     },
     {
@@ -100,13 +107,13 @@ const Shop: React.FC = () => {
       name: 'Gaming Desktop',
       price: 1499,
       originalPrice: 1999,
-      image: storage,
+      image: storage, // Placeholder
       rating: 4.9,
       reviews: 98,
       discount: 25,
       inStock: true,
-      category: 'Desktops',
-      brand: 'HP',
+      category: 'Computers',
+      subcategory: 'Desktops / PCs',
       description: 'High-performance gaming desktop',
     },
     {
@@ -114,22 +121,21 @@ const Shop: React.FC = () => {
       name: 'Smartphone Pro',
       price: 899,
       originalPrice: 1099,
-      image: accessory,
+      image: accessory, // Placeholder
       rating: 4.6,
       reviews: 567,
       discount: 18,
       inStock: true,
-      category: 'Phones',
-      brand: 'Apple',
+      category: 'Phones & Tablets',
+      subcategory: 'Smartphones',
       description: 'Latest flagship smartphone',
     },
   ]);
 
   const [filters, setFilters] = useState({
     category: 'All',
+    subcategory: 'All',
     priceRange: [0, 2000],
-    brand: 'All',
-    rating: 0,
   });
 
   const [sortBy, setSortBy] = useState('popular');
@@ -140,24 +146,31 @@ const Shop: React.FC = () => {
     alert(`${product.name} added to cart!`);
   };
 
-  const categories = ['All', 'Laptops', 'Desktops', 'Phones', 'Accessories'];
-  const brands = ['All', 'Dell', 'HP', 'Lenovo', 'Apple', 'Sony', 'LG', 'Logitech'];
-  const ratings = [0, 3.5, 4, 4.5, 5];
+  const categories = ['All', ...Object.keys(CATEGORY_DATA)];
+
+  // Get available subcategories based on selected category
+  const subcategories = filters.category !== 'All'
+    ? ['All', ...CATEGORY_DATA[filters.category]]
+    : [];
+
+  // Reset subcategory when category changes
+  useEffect(() => {
+    setFilters(prev => ({ ...prev, subcategory: 'All' }));
+  }, [filters.category]);
 
   const filteredProducts = products.filter((product) => {
-    if (
-      filters.category !== 'All' &&
-      product.category !== filters.category
-    ) {
+    // 1. Category Filter
+    if (filters.category !== 'All' && product.category !== filters.category) {
       return false;
     }
+
+    // 2. Subcategory Filter
+    if (filters.subcategory !== 'All' && product.subcategory !== filters.subcategory) {
+      return false;
+    }
+
+    // 3. Price Filter
     if (product.price < filters.priceRange[0] || product.price > filters.priceRange[1]) {
-      return false;
-    }
-    if (filters.brand !== 'All' && product.brand !== filters.brand) {
-      return false;
-    }
-    if (product.rating < filters.rating) {
       return false;
     }
     return true;
@@ -174,7 +187,7 @@ const Shop: React.FC = () => {
       case 'rating':
         return b.rating - a.rating;
       default:
-        return 0;
+        return 0; // popular
     }
   });
 
@@ -183,23 +196,6 @@ const Shop: React.FC = () => {
       <div className="shop-container">
         {/* Filters Sidebar */}
         <aside className="filters-sidebar">
-          <h3>🔍 Filters</h3>
-
-          {/* Category Filter */}
-          <div className="filter-group">
-            <h4>Category</h4>
-            {categories.map((cat) => (
-              <label key={cat}> 
-                <input
-                  type="radio"
-                  name="category"
-                  checked={filters.category === cat}
-                  onChange={() => setFilters({ ...filters, category: cat })}
-                />
-                {cat}
-              </label>
-            ))}
-          </div>
 
           {/* Price Range Filter */}
           <div className="filter-group">
@@ -231,39 +227,10 @@ const Shop: React.FC = () => {
             </div>
           </div>
 
-          {/* Brand Filter */}
-          <div className="filter-group">
-            <h4>Brand</h4>
-            {brands.map((brand) => (
-              <label key={brand}>
-                <input
-                  type="radio"
-                  name="brand"
-                  checked={filters.brand === brand}
-                  onChange={() => setFilters({ ...filters, brand })}
-                />
-                {brand}
-              </label>
-            ))}
-          </div>
-
-          {/* Rating Filter */}
-          <div className="filter-group">
-            <h4>Rating</h4>
-            {ratings.map((rating) => (
-              <label key={rating}>
-                <input
-                  type="radio"
-                  name="rating"
-                  checked={filters.rating === rating}
-                  onChange={() => setFilters({ ...filters, rating })}
-                />
-                {rating === 0 ? 'All Ratings' : `${rating}+ Stars ⭐`}
-              </label>
-            ))}
-          </div>
-
-          <button className="btn-filter-clear" onClick={() => setFilters({ category: 'All', priceRange: [0, 2000], brand: 'All', rating: 0 })}>
+          <button
+            className="btn-filter-clear"
+            onClick={() => setFilters({ category: 'All', subcategory: 'All', priceRange: [0, 2000] })}
+          >
             Clear Filters
           </button>
         </aside>
@@ -272,6 +239,35 @@ const Shop: React.FC = () => {
         <div className="shop-main">
           {/* Sort & Display Options */}
           <div className="sort-controls">
+
+            {/* Category Filter Dropdown */}
+            <div className="sort-select">
+              <label>Category:</label>
+              <select
+                value={filters.category}
+                onChange={(e) => setFilters({ ...filters, category: e.target.value })}
+              >
+                {categories.map((cat) => (
+                  <option key={cat} value={cat}>{cat}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Subcategory Filter Dropdown */}
+            {filters.category !== 'All' && (
+              <div className="sort-select">
+                <label>Subcategory:</label>
+                <select
+                  value={filters.subcategory}
+                  onChange={(e) => setFilters({ ...filters, subcategory: e.target.value })}
+                >
+                  {subcategories.map((sub) => (
+                    <option key={sub} value={sub}>{sub}</option>
+                  ))}
+                </select>
+              </div>
+            )}
+
             <div className="sort-select">
               <label>Sort By:</label>
               <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>

@@ -10,6 +10,7 @@ export interface Product {
   reviews: number;
   inStock: boolean;
   quantity?: number;
+  discount?: number;
 }
 
 export interface CartItem extends Product {

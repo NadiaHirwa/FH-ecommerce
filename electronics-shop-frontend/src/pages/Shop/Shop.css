@@ -111,10 +111,11 @@
   padding: 1.5rem;
   border-radius: 0.75rem;
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
   align-items: center;
   margin-bottom: 2rem;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
+  /* Allow wrapping for clear inputs on smaller screens */
 }
 
 .sort-select {
@@ -236,7 +237,10 @@
 
   .result-count {
     margin-left: 0;
+    width: auto;
     width: 100%;
+    order: 10;
+    /* Move to bottom on mobile */
   }
 
   .products-grid {
