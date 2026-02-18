@@ -194,46 +194,7 @@ const Shop: React.FC = () => {
   return (
     <div className="shop-page">
       <div className="shop-container">
-        {/* Filters Sidebar */}
-        <aside className="filters-sidebar">
 
-          {/* Price Range Filter */}
-          <div className="filter-group">
-            <h4>Price Range</h4>
-            <div className="price-inputs">
-              <input
-                type="number"
-                placeholder="Min"
-                value={filters.priceRange[0]}
-                onChange={(e) =>
-                  setFilters({
-                    ...filters,
-                    priceRange: [parseInt(e.target.value) || 0, filters.priceRange[1]],
-                  })
-                }
-              />
-              <span>-</span>
-              <input
-                type="number"
-                placeholder="Max"
-                value={filters.priceRange[1]}
-                onChange={(e) =>
-                  setFilters({
-                    ...filters,
-                    priceRange: [filters.priceRange[0], parseInt(e.target.value) || 2000],
-                  })
-                }
-              />
-            </div>
-          </div>
-
-          <button
-            className="btn-filter-clear"
-            onClick={() => setFilters({ category: 'All', subcategory: 'All', priceRange: [0, 2000] })}
-          >
-            Clear Filters
-          </button>
-        </aside>
 
         {/* Main Content */}
         <div className="shop-main">
@@ -268,6 +229,36 @@ const Shop: React.FC = () => {
               </div>
             )}
 
+            {/* Price Range Filter */}
+            <div className="sort-select price-inputs-compact">
+              <label>Price:</label>
+              <input
+                type="number"
+                placeholder="Min"
+                value={filters.priceRange[0]}
+                onChange={(e) =>
+                  setFilters({
+                    ...filters,
+                    priceRange: [parseInt(e.target.value) || 0, filters.priceRange[1]],
+                  })
+                }
+                className="price-input"
+              />
+              <span>-</span>
+              <input
+                type="number"
+                placeholder="Max"
+                value={filters.priceRange[1]}
+                onChange={(e) =>
+                  setFilters({
+                    ...filters,
+                    priceRange: [filters.priceRange[0], parseInt(e.target.value) || 2000],
+                  })
+                }
+                className="price-input"
+              />
+            </div>
+
             <div className="sort-select">
               <label>Sort By:</label>
               <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
@@ -286,6 +277,13 @@ const Shop: React.FC = () => {
                 <option value="36">36 per page</option>
               </select>
             </div>
+
+            <button
+              className="btn-filter-clear-compact"
+              onClick={() => setFilters({ category: 'All', subcategory: 'All', priceRange: [0, 2000] })}
+            >
+              Clear
+            </button>
             <div className="result-count">
               {sortedProducts.length} products found
             </div>
