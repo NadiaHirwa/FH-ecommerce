@@ -9,7 +9,7 @@
 * Checkout (Guest Checkout)
 * Order Success / Thank You
 * Track Order (Order No + Phone/Email)
-* About Us
+* AboutUs
 * Contact Us
 * FAQ
 * Privacy Policy
