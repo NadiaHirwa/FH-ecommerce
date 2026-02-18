@@ -309,10 +309,7 @@ const Home: React.FC = () => {
     }
   };
 
-  // More robust check on scroll end to reset position
-  const handleScrollEnd = () => {
-    // Intentionally left blank or use for snapping adjustments
-  };
+
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
@@ -338,61 +335,18 @@ const Home: React.FC = () => {
     }
   };
 
-  // Popular Products Carousel Logic
-  // Matches 'Featured Categories' logic exactly for consistency
+  /* 
+  // Popular Products Carousel Logic (Unused)
   const popularScrollRef = React.useRef<HTMLDivElement>(null);
-
-  // Triple the list to enable infinite scrolling illusion
-  // We use slice(0, 8) to get the top 8 products, then triple them
   const basePopularProducts = products.slice(0, 8);
   const popularProducts = [...basePopularProducts, ...basePopularProducts, ...basePopularProducts];
 
-  const handlePopularScroll = () => {
-    if (popularScrollRef.current) {
-      const { scrollLeft, scrollWidth } = popularScrollRef.current;
-      const oneSetWidth = scrollWidth / 3;
-
-      // Reset to middle set if we hit the boundaries
-      if (scrollLeft >= 2 * oneSetWidth) {
-        popularScrollRef.current.scrollLeft = scrollLeft - oneSetWidth;
-      } else if (scrollLeft <= 0) {
-        popularScrollRef.current.scrollLeft = scrollLeft + oneSetWidth;
-      }
-    }
-  };
-
-  const scrollPopularLeft = () => {
-    if (popularScrollRef.current) {
-      // Check if we need to wrap before scrolling
-      const { scrollLeft, scrollWidth } = popularScrollRef.current;
-      const oneSetWidth = scrollWidth / 3;
-
-      if (scrollLeft <= 10) {
-        popularScrollRef.current.scrollTo({ left: oneSetWidth, behavior: 'auto' });
-        // Allow a brief tick for the jump to register before smoothing? 
-        // Actually, if we just rely on handleScroll to catch bounds, we can just scrollBy.
-        // But for buttons, manual wrapping is safer.
-        // Let's use simple scrollBy and let handleScroll catch it, 
-        // OR proactively jump like we did for categories.
-      }
-      popularScrollRef.current.scrollBy({ left: -300, behavior: 'smooth' });
-    }
-  };
-
-  const scrollPopularRight = () => {
-    if (popularScrollRef.current) {
-      popularScrollRef.current.scrollBy({ left: 300, behavior: 'smooth' });
-    }
-  };
-
-  // Initialize scroll position to the middle set
-  React.useEffect(() => {
-    if (popularScrollRef.current) {
-      const scrollWidth = popularScrollRef.current.scrollWidth;
-      const oneSetWidth = scrollWidth / 3;
-      popularScrollRef.current.scrollLeft = oneSetWidth;
-    }
-  }, [popularProducts]);
+  const handlePopularScroll = () => { ... }
+  const scrollPopularLeft = () => { ... }
+  const scrollPopularRight = () => { ... }
+  
+  React.useEffect(() => { ... }, [popularProducts]);
+  */
 
   return (
     <div className="home-page">
@@ -518,11 +472,10 @@ const Home: React.FC = () => {
       {/* <section className="promotions-banner">
         <div className="container">
           <div className="promo-card">
-            <div className="promo-content">
-              <h3>🎉 Special Offer</h3>
-              <p>20% OFF Everything!</p>
-              <p className="promo-code">Code: WELCOME20</p>
-              <p className="promo-date">Ends Jan 31, 2026</p>
+            <div className="promo-text-column">
+              <span className="promo-badge">Limited Time Offer</span>
+              <h3>Get 20% OFF Everything</h3>
+              <p>Upgrade your setup with the latest tech. Use code <strong>WELCOME20</strong> at checkout.</p>
             </div>
             <Link to="/shop" className="btn btn-white">
               Shop Now
