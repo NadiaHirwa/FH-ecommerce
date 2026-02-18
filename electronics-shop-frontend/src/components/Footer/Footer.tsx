@@ -48,11 +48,11 @@ export const Footer: React.FC = () => {
           <div className="contact-info">
             <p>
               <span className="contact-icon">📧</span>
-              <a href="mailto:support@electroshop.com">support@electroshop.com</a>
+              <a href="mailto:fhtechnologyltd@gmail.com">fhtechnologyltd@gmail.com</a>
             </p>
             <p>
               <span className="contact-icon">📞</span>
-              <a href="tel:1-800-3325876">1-800-ELECTRO</a>
+              <a href="tel:+250786729568">+250 786 729 568</a>
             </p>
           </div>
 
@@ -100,7 +100,7 @@ export const Footer: React.FC = () => {
 
       {/* Footer Bottom */}
       <div className="footer-bottom">
-        <p>&copy; {currentYear} ElectroShop. All rights reserved. | Made with ❤️</p>
+        <p>&copy; {currentYear} ElectroShop. All rights reserved. | unseal the future with us</p>
       </div>
     </footer>
   );

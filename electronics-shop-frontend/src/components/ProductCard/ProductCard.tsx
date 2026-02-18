@@ -6,13 +6,15 @@ import './ProductCard.css';
 interface ProductCardProps {
   product: Product;
   onAddToCart: (product: Product) => void;
+  badge?: string;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
+export const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, badge }) => {
   return (
     <div className="product-card">
       <div className="product-image">
         <img src={product.image} alt={product.name} />
+        {badge && <span className="product-badge new">{badge}</span>}
         {product.originalPrice && product.originalPrice > product.price && (
           <span className="discount-badge">
             -{Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}%
