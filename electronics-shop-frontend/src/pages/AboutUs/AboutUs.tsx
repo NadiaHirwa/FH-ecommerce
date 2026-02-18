@@ -1,68 +1,114 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './AboutUs.css';
 
 const AboutUs: React.FC = () => {
   return (
     <div className="about-page">
-      {/* Hero */}
+      {/* 1️⃣ Hero Section */}
       <section className="about-hero">
         <div className="hero-content">
-          <h1>About ElectroShop ⚡</h1>
-          <p>Your trusted destination for quality electronics</p>
+          <h1>About Our Store</h1>
+          <p>Your trusted local partner for quality electronics and tech solutions.</p>
         </div>
       </section>
 
-      {/* Story */}
-      <section className="story-section">
-        <div className="container">
-          <div className="story-grid">
-            <img src="https://via.placeholder.com/500x300?text=Our+Story" alt="Our Story" />
-            <div className="story-content">
-              <h2>Our Journey</h2>
-              <p>
-                Founded in 2020, ElectroShop began with a simple mission: to provide high-quality electronics at competitive prices. What started as a small online store has grown into a trusted platform serving thousands of customers.
-              </p>
-              <p>
-                We believe that everyone deserves access to the latest technology without breaking the bank. Our carefully curated selection of products ensures you get the best value for your money.
-              </p>
+      <div className="container">
+        {/* 2️⃣ Who We Are */}
+        <section className="who-we-are-section">
+          <h2>Who We Are</h2>
+          <div className="who-content">
+            <p>
+              We are a dedicated local electronics tools store committed to empowering your digital life.
+              We provide only high-quality tech products, ensuring that every purchase adds value to your setup.
+              Customer satisfaction is our absolute priority — we believ in building lasting relationships through trust and service.
+            </p>
+          </div>
+        </section>
+
+        {/* 3️⃣ 🛠️ Our Services */}
+        <section className="services-section">
+          <h2>🛠️ Our Services</h2>
+          <div className="services-grid">
+            <div className="service-card">
+              <span className="service-icon">🔧</span>
+              <h3>Device Repair & Maintenance</h3>
+              <p>Expert diagnosis and repair for laptops, PCs, and peripherals.</p>
+            </div>
+            <div className="service-card">
+              <span className="service-icon">💻</span>
+              <h3>Laptop Upgrades</h3>
+              <p>RAM & SSD installation to boost your computer's speed and performance.</p>
+            </div>
+            <div className="service-card">
+              <span className="service-icon">🖨️</span>
+              <h3>Printer Setup</h3>
+              <p>Complete installation, configuration, and troubleshooting services.</p>
+            </div>
+            <div className="service-card">
+              <span className="service-icon">🌐</span>
+              <h3>Network Solutions</h3>
+              <p>Home and office Wi-Fi setup, router configuration, and optimization.</p>
+            </div>
+            <div className="service-card">
+              <span className="service-icon">📦</span>
+              <h3>Bulk Equipment Supply</h3>
+              <p>Reliable sourcing of electronics for schools, offices, and businesses.</p>
+            </div>
+            <div className="service-card">
+              <span className="service-icon">🛒</span>
+              <h3>Product Consultation</h3>
+              <p>Personalized advice to help you choose the perfect tech for your needs.</p>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Values */}
-      <section className="values-section">
-        <div className="container">
-          <h2>Our Values</h2>
-          <div className="values-grid">
-            <div className="value-card">
-              <div className="value-icon">🎯</div>
-              <h3>Quality</h3>
-              <p>We source only the best products from trusted manufacturers</p>
+          <div className="services-cta">
+            <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" className="btn btn-whatsapp-outline">
+              Chat With Us on WhatsApp 💬
+            </a>
+          </div>
+        </section>
+
+        {/* 4️⃣ Why Choose Us */}
+        <section className="why-choose-us-section">
+          <h2>Why Choose Us?</h2>
+          <div className="features-grid">
+            <div className="feature-item">
+              <div className="feature-icon">✅</div>
+              <h3>Trusted Local Store</h3>
+              <p>Rooted in the community, we are always here when you need us.</p>
             </div>
-            <div className="value-card">
-              <div className="value-icon">💚</div>
-              <h3>Customer Care</h3>
-              <p>Your satisfaction is our top priority. We're here 24/7</p>
+            <div className="feature-item">
+              <div className="feature-icon">💎</div>
+              <h3>Quality Products</h3>
+              <p>We stock only genuine, high-performance electronics and tools.</p>
             </div>
-            <div className="value-card">
-              <div className="value-icon">🚀</div>
-              <h3>Innovation</h3>
-              <p>We constantly improve to bring you the best experience</p>
+            <div className="feature-item">
+              <div className="feature-icon">🏷️</div>
+              <h3>Affordable Pricing</h3>
+              <p>Competitive rates without compromising on quality or service.</p>
+            </div>
+            <div className="feature-item">
+              <div className="feature-icon">🤝</div>
+              <h3>After-Sale Support</h3>
+              <p>Our relationship doesn't end at checkout; we support you all the way.</p>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
-      {/* CTA */}
-      <section className="cta-section">
+      {/* 5️⃣ Call To Action */}
+      <section className="about-cta-section">
         <div className="container">
-          <h2>Let's Stay Connected</h2>
-          <p>Have questions or suggestions? We'd love to hear from you!</p>
-          <Link to="/contact" className="btn btn-primary">
-            Get in Touch
-          </Link>
+          <h2>Need help choosing the right product?</h2>
+          <p>Contact us today! Our team is ready to assist you.</p>
+          <div className="cta-buttons">
+            <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" className="btn btn-whatsapp-solid">
+              WhatsApp Us 📲
+            </a>
+            <a href="tel:+1234567890" className="btn btn-call-solid">
+              Call Us 📞
+            </a>
+          </div>
         </div>
       </section>
     </div>
