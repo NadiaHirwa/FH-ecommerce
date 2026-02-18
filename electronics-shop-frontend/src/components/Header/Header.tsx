@@ -42,7 +42,7 @@ export const Header: React.FC<HeaderProps> = ({
           <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/shop">Shop</a></li>
-            <li><a href="/categories">Categories</a></li>
+
             <li><a href="/about">About Us</a></li>
             <li><a href="/contact">Contact</a></li>
           </ul>
@@ -58,9 +58,9 @@ export const Header: React.FC<HeaderProps> = ({
             onChange={handleSearchChange}
             aria-label="Search products"
           />
-          <button 
-            type="submit" 
-            className="search-button" 
+          <button
+            type="submit"
+            className="search-button"
             title="Search"
             aria-label="Submit search"
           >
@@ -71,8 +71,8 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Action Buttons - Top Right */}
         <div className="header-actions">
           {/* Cart Button with Badge */}
-          <button 
-            className="cart-button" 
+          <button
+            className="cart-button"
             onClick={onCartClick}
             title="Shopping Cart"
             aria-label={`Shopping cart with ${cartItemsCount} items`}
@@ -86,8 +86,8 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
 
           {/* Account Button */}
-          <button 
-            className="account-button" 
+          <button
+            className="account-button"
             onClick={onAccountClick}
             title="Account & Login"
             aria-label="Go to account"

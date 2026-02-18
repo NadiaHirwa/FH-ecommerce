@@ -11,90 +11,7 @@ import accessory from '../../assets/categories/accessory.jpg';
 import heroBanner from '../../assets/hero-banner.png';
 import './Home.css';
 
-const CATEGORY_DATA = {
-  'Computers': [
-    'Laptops',
-    'Desktops / PCs',
-    'Mini PCs',
-    'All-in-One PCs'
-  ],
-
-  'Components & Parts': [
-    'Processors (CPU)',
-    'Motherboards',
-    'RAM',
-    'Graphics Cards (GPU)',
-    'Power Supplies (PSU)',
-    'Cooling Systems',
-    'Computer Cases'
-  ],
-
-  'Storage': [
-    'SSD',
-    'HDD',
-    'External Storage',
-    'Flash Drives',
-    'Memory Cards'
-  ],
-
-  'Computer Accessories': [
-    'Keyboards',
-    'Mouse',
-    'Webcams',
-    'USB Hubs',
-    'Laptop Stands',
-    'Laptop Bags & Sleeves'
-  ],
-
-  'Audio & Video': [
-    'Headphones & Headsets',
-    'Earphones',
-    'Bluetooth Earbuds',
-    'Speakers',
-    'Microphones',
-    'Projectors',
-    'Audio Cables & Adapters'
-  ],
-
-  'Phones & Tablets': [
-    'Smartphones',
-    'Tablets',
-    'Phone Cases',
-    'Screen Protectors'
-  ],
-
-  'Networking': [
-    'Routers',
-    'Modems',
-    'Switches',
-    'Network Cables',
-    'Wi-Fi Extenders',
-    'Network Adapters'
-  ],
-
-  'Office Equipment': [
-    'Printers',
-    'Scanners',
-    'Ink Cartridges',
-    'Toner Cartridges',
-    'Printer Paper'
-  ],
-
-  'Power & Electrical': [
-    'Chargers',
-    'Power Banks',
-    'UPS',
-    'Adapters',
-    'Extension Cables'
-  ],
-
-  'Tools & Maintenance': [
-    'Tool Kits',
-    'Cleaning Kits',
-    'Thermal Paste',
-    'Replacement Parts'
-  ]
-};
+import { CATEGORY_DATA, CATEGORIES_WITH_IMAGES } from '../../data/categories';
 
 const Home: React.FC = () => {
   // Sample products
@@ -265,16 +182,8 @@ const Home: React.FC = () => {
   // Category Carousel Logic
   const scrollContainerRef = React.useRef<HTMLDivElement>(null);
 
-  const categoryImages = [laptop, monitor, keyboard, headphones, storage, accessory];
-
-  // Create circular data: [Clone End] [Original] [Clone Start]
-  // We'll duplicate the list 3 times to ensure smooth infinite scrolling
-  const originalCategories = Object.keys(CATEGORY_DATA).map((key, index) => ({
-    id: index,
-    name: key,
-    image: categoryImages[index % categoryImages.length],
-    count: (CATEGORY_DATA as any)[key].length * 12 + 5,
-  }));
+  // Use shared category data
+  const originalCategories = CATEGORIES_WITH_IMAGES;
 
   const featuredCategories = [...originalCategories, ...originalCategories, ...originalCategories];
 
@@ -335,18 +244,64 @@ const Home: React.FC = () => {
     }
   };
 
-  /* 
-  // Popular Products Carousel Logic (Unused)
+  // Popular Products Carousel Logic
   const popularScrollRef = React.useRef<HTMLDivElement>(null);
+
+  // Triple the list to enable infinite scrolling illusion
+  // We use slice(0, 8) to get the top 8 products, then triple them
   const basePopularProducts = products.slice(0, 8);
   const popularProducts = [...basePopularProducts, ...basePopularProducts, ...basePopularProducts];
 
-  const handlePopularScroll = () => { ... }
-  const scrollPopularLeft = () => { ... }
-  const scrollPopularRight = () => { ... }
-  
-  React.useEffect(() => { ... }, [popularProducts]);
-  */
+  const handlePopularScroll = () => {
+    if (popularScrollRef.current) {
+      const { scrollLeft, scrollWidth } = popularScrollRef.current;
+      const oneSetWidth = scrollWidth / 3;
+
+      // Reset to middle set if we hit the boundaries
+      if (scrollLeft >= 2 * oneSetWidth) {
+        popularScrollRef.current.scrollLeft = scrollLeft - oneSetWidth;
+      } else if (scrollLeft <= 0) {
+        popularScrollRef.current.scrollLeft = scrollLeft + oneSetWidth;
+      }
+    }
+  };
+
+  const scrollPopularLeft = () => {
+    if (popularScrollRef.current) {
+      const { scrollLeft, scrollWidth } = popularScrollRef.current;
+      const oneSetWidth = scrollWidth / 3;
+
+      // Proactively wrap if near start
+      if (scrollLeft <= oneSetWidth / 2) {
+        popularScrollRef.current.scrollLeft = scrollLeft + oneSetWidth;
+      }
+
+      popularScrollRef.current.scrollBy({ left: -300, behavior: 'smooth' });
+    }
+  };
+
+  const scrollPopularRight = () => {
+    if (popularScrollRef.current) {
+      const { scrollLeft, scrollWidth } = popularScrollRef.current;
+      const oneSetWidth = scrollWidth / 3;
+
+      // Proactively wrap if near end
+      if (scrollLeft >= 2.5 * oneSetWidth) {
+        popularScrollRef.current.scrollLeft = scrollLeft - oneSetWidth;
+      }
+
+      popularScrollRef.current.scrollBy({ left: 300, behavior: 'smooth' });
+    }
+  };
+
+  // Initialize scroll position to the middle set
+  React.useEffect(() => {
+    if (popularScrollRef.current) {
+      const scrollWidth = popularScrollRef.current.scrollWidth;
+      const oneSetWidth = scrollWidth / 3;
+      popularScrollRef.current.scrollLeft = oneSetWidth;
+    }
+  }, [popularProducts]);
 
   return (
     <div className="home-page">
@@ -416,36 +371,6 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
-
-      {/* Popular Products */}
-      {/* <section className="popular-products">
-        <div className="container">
-          <div className="section-header">
-            <h2>Trending Now</h2>
-            <Link to="/shop" className="view-all-link">
-              View All Products ↗
-            </Link>
-          </div>
-          <div className="carousel-wrapper trending-carousel-wrapper">
-            <button className="carousel-nav-btn prev" onClick={scrollPopularLeft} aria-label="Previous products">
-              ‹
-            </button>
-            <div
-              className="products-grid trending-products-grid"
-              ref={popularScrollRef}
-              onScroll={handlePopularScroll}
-            >
-              {popularProducts.map((product, index) => (
-                <ProductCard key={product.id} product={product} onAddToCart={handleAddToCart} />
-              ))}
-            </div>
-            <button className="carousel-nav-btn next" onClick={scrollPopularRight} aria-label="Next products">
-              ›
-            </button>
-          </div>
-        </div>
-      </section> */}
-
       {/* New Arrivals */}
       <section className="new-arrivals">
         <div className="container">
@@ -467,22 +392,6 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
-
-      {/* Promotions Banner */}
-      {/* <section className="promotions-banner">
-        <div className="container">
-          <div className="promo-card">
-            <div className="promo-text-column">
-              <span className="promo-badge">Limited Time Offer</span>
-              <h3>Get 20% OFF Everything</h3>
-              <p>Upgrade your setup with the latest tech. Use code <strong>WELCOME20</strong> at checkout.</p>
-            </div>
-            <Link to="/shop" className="btn btn-white">
-              Shop Now
-            </Link>
-          </div>
-        </div>
-      </section> */}
     </div>
   );
 };

@@ -158,7 +158,6 @@
   }
 
   .featured-categories h2,
-  .popular-products h2,
   .new-arrivals h2 {
     font-size: 1.75rem;
   }
@@ -321,9 +320,10 @@
 /* New Arrivals styles removed for redesign */
 
 /* Wider container for product sections */
-.new-arrivals-scroll-container {
+/* Wider container for product sections */
+.products-scroll-container {
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
   overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -332,71 +332,26 @@
   scroll-snap-type: x mandatory;
 }
 
-.new-arrivals-scroll-container::-webkit-scrollbar {
+.products-scroll-container::-webkit-scrollbar {
   display: none;
 }
 
 .product-card-wrapper {
   flex: 0 0 auto;
   width: 280px;
+  /* Fixed width for consistency */
   scroll-snap-align: start;
 }
 
-.featured-categories .container,
-.promotions-banner .container {
+/* Ensure ProductCard takes full width of wrapper */
+.product-card-wrapper>div {
+  width: 100%;
+  height: 100%;
+}
+
+.featured-categories .container {
   max-width: 1400px;
   padding: 0 2rem;
-}
-
-
-/* Promotions Banner */
-.promotions-banner {
-  padding: 3rem 0;
-  background-color: white;
-}
-
-.promo-card {
-  background: linear-gradient(135deg, #dbeafe 0%, #eff6ff 100%);
-  border: 2px solid #1e40af;
-  border-radius: 1rem;
-  padding: 3rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 2rem;
-}
-
-.promo-content h3 {
-  font-size: 1.75rem;
-  color: #1e40af;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-}
-
-.promo-content p {
-  margin-bottom: 0.5rem;
-  color: #374151;
-}
-
-.promo-content p:nth-of-type(2) {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #1e40af;
-}
-
-.promo-code {
-  background-color: white;
-  color: #1e40af;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  display: inline-block;
-  font-weight: 600;
-  margin: 0.5rem 0;
-}
-
-.promo-date {
-  font-size: 0.85rem;
-  color: #6b7280;
 }
 
 .btn-white {
@@ -471,7 +426,6 @@
   }
 
   .featured-categories h2,
-  .popular-products h2,
   .new-arrivals h2 {
     font-size: 1.75rem;
   }
@@ -548,7 +502,7 @@
     flex-shrink: 0;
   }
 
-  .popular-products .btn-secondary,
+  .btn-secondary,
   .new-arrivals .btn-secondary {
     width: 100%;
     text-align: center;
@@ -575,4 +529,4 @@
   .products-grid {
     grid-template-columns: none;
   }
-}
+} 
