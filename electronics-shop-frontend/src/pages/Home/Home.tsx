@@ -254,7 +254,7 @@ const Home: React.FC = () => {
 
 
 
- 
+
 
 
 
@@ -297,7 +297,7 @@ const Home: React.FC = () => {
         <div className="container">
           <div className="section-header">
             <h2>Explore Our Featured Categories</h2>
-            <Link to="/categories" className="view-all-link">
+            <Link to="/shop" className="view-all-link">
               Show All Categories ↗
             </Link>
           </div>
