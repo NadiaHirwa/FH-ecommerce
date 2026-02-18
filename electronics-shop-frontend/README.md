@@ -73,4 +73,4 @@ export default defineConfig([
 ```
 
 
-Link: fh-ecommerce-kappa.vercel.app
+deployed Link: fh-ecommerce-kappa.vercel.app
