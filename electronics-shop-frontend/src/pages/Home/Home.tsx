@@ -252,47 +252,11 @@ const Home: React.FC = () => {
   const basePopularProducts = products.slice(0, 8);
   const popularProducts = [...basePopularProducts, ...basePopularProducts, ...basePopularProducts];
 
-  const handlePopularScroll = () => {
-    if (popularScrollRef.current) {
-      const { scrollLeft, scrollWidth } = popularScrollRef.current;
-      const oneSetWidth = scrollWidth / 3;
 
-      // Reset to middle set if we hit the boundaries
-      if (scrollLeft >= 2 * oneSetWidth) {
-        popularScrollRef.current.scrollLeft = scrollLeft - oneSetWidth;
-      } else if (scrollLeft <= 0) {
-        popularScrollRef.current.scrollLeft = scrollLeft + oneSetWidth;
-      }
-    }
-  };
 
-  const scrollPopularLeft = () => {
-    if (popularScrollRef.current) {
-      const { scrollLeft, scrollWidth } = popularScrollRef.current;
-      const oneSetWidth = scrollWidth / 3;
+ 
 
-      // Proactively wrap if near start
-      if (scrollLeft <= oneSetWidth / 2) {
-        popularScrollRef.current.scrollLeft = scrollLeft + oneSetWidth;
-      }
 
-      popularScrollRef.current.scrollBy({ left: -300, behavior: 'smooth' });
-    }
-  };
-
-  const scrollPopularRight = () => {
-    if (popularScrollRef.current) {
-      const { scrollLeft, scrollWidth } = popularScrollRef.current;
-      const oneSetWidth = scrollWidth / 3;
-
-      // Proactively wrap if near end
-      if (scrollLeft >= 2.5 * oneSetWidth) {
-        popularScrollRef.current.scrollLeft = scrollLeft - oneSetWidth;
-      }
-
-      popularScrollRef.current.scrollBy({ left: 300, behavior: 'smooth' });
-    }
-  };
 
   // Initialize scroll position to the middle set
   React.useEffect(() => {
