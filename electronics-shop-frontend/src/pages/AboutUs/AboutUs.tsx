@@ -162,7 +162,7 @@ const AboutUs: React.FC = () => {
           <h2>Need help choosing the right product?</h2>
           <p>Contact us today! Our team is ready to assist you.</p>
           <div className="cta-buttons">
-            <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" className="btn btn-whatsapp-solid">
+            <a href="https://wa.me/250786729568" target="_blank" rel="noopener noreferrer" className="btn btn-whatsapp-solid">
               WhatsApp Us 📲
             </a>
             <a href="tel:+250786729568" className="btn btn-call-solid">

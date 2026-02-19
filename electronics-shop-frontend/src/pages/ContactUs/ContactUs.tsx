@@ -6,7 +6,7 @@ const ContactUs: React.FC = () => {
     name: '',
     email: '',
     subject: '',
-    message: '',
+    message: '', 
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

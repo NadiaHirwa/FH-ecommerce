@@ -4,12 +4,12 @@
   background:
     radial-gradient(circle at top left, #eef2ff 0, #f3f4f6 40%, #e0f2fe 100%);
 }
-
+ 
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1.5rem;
-}
+} 
 
 .contact-page h1 {
   color: #1e40af;
