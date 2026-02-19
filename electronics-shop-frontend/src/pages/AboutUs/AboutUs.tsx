@@ -1,7 +1,50 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import './AboutUs.css';
+import { ArrowRight, CheckCircle, Diamond, Tag, Handshake, ChevronLeft, ChevronRight } from 'lucide-react';
+
+const services = [
+  { id: 1, title: "Device Repair & Maintenance", icon: "🔧", description: "Expert diagnosis and repair for laptops, PCs, and peripherals." },
+  { id: 2, title: "Laptop Upgrades", icon: "💻", description: "RAM & SSD installation to boost your computer's speed and performance." },
+  { id: 3, title: "Printer Setup", icon: "🖨️", description: "Complete installation, configuration, and troubleshooting services." },
+  { id: 4, title: "Network Solutions", icon: "🌐", description: "Home and office Wi-Fi setup, router configuration, and optimization." },
+  { id: 5, title: "Bulk Equipment Supply", icon: "📦", description: "Reliable sourcing of electronics for schools, offices, and businesses." },
+  { id: 6, title: "Product Consultation", icon: "🛒", description: "Personalized advice to help you choose the perfect tech for your needs." }
+];
 
 const AboutUs: React.FC = () => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const { current } = scrollRef;
+      const scrollAmount = 340; // Card width + gap
+      if (direction === 'left') {
+        current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      } else {
+        current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      }
+    }
+  };
+
+  const handleScroll = () => {
+    if (scrollRef.current) {
+      const { current } = scrollRef;
+      const scrollWidth = current.scrollWidth;
+      const scrollLeft = current.scrollLeft;
+
+      // Total sets = 3. One set width approx = scrollWidth / 3.
+      const singleSetWidth = scrollWidth / 3;
+
+      if (scrollLeft >= singleSetWidth * 2) {
+        // Reset to start of middle set
+        current.scrollLeft = scrollLeft - singleSetWidth;
+      } else if (scrollLeft <= 0) {
+        // Jump to end of middle set
+        current.scrollLeft = scrollLeft + singleSetWidth;
+      }
+    }
+  };
+
   return (
     <div className="about-page">
       {/* 1️⃣ Hero Section */}
@@ -24,73 +67,90 @@ const AboutUs: React.FC = () => {
             </p>
           </div>
         </section>
+      </div>
 
-        {/* 3️⃣ 🛠️ Our Services */}
-        <section className="services-section">
+      {/* 3️⃣ 🛠️ Our Services */}
+      <section className="services-section">
+        <div className="services-header-container">
           <h2>🛠️ Our Services</h2>
-          <div className="services-grid">
-            <div className="service-card">
-              <span className="service-icon">🔧</span>
-              <h3>Device Repair & Maintenance</h3>
-              <p>Expert diagnosis and repair for laptops, PCs, and peripherals.</p>
-            </div>
-            <div className="service-card">
-              <span className="service-icon">💻</span>
-              <h3>Laptop Upgrades</h3>
-              <p>RAM & SSD installation to boost your computer's speed and performance.</p>
-            </div>
-            <div className="service-card">
-              <span className="service-icon">🖨️</span>
-              <h3>Printer Setup</h3>
-              <p>Complete installation, configuration, and troubleshooting services.</p>
-            </div>
-            <div className="service-card">
-              <span className="service-icon">🌐</span>
-              <h3>Network Solutions</h3>
-              <p>Home and office Wi-Fi setup, router configuration, and optimization.</p>
-            </div>
-            <div className="service-card">
-              <span className="service-icon">📦</span>
-              <h3>Bulk Equipment Supply</h3>
-              <p>Reliable sourcing of electronics for schools, offices, and businesses.</p>
-            </div>
-            <div className="service-card">
-              <span className="service-icon">🛒</span>
-              <h3>Product Consultation</h3>
-              <p>Personalized advice to help you choose the perfect tech for your needs.</p>
-            </div>
-          </div>
+        </div>
 
-          <div className="services-cta">
-            <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" className="btn btn-whatsapp-outline">
-              Chat With Us on WhatsApp 💬
-            </a>
-          </div>
-        </section>
+        <div
+          className="services-grid"
+          ref={scrollRef}
+          onScroll={handleScroll}
+        >
+          {/* Render items multiple times for seamless loop */}
+          {[...services, ...services, ...services].map((service, index) => (
+            <div className="service-card" key={`${service.id}-${index}`}>
+              <div className="service-header">
+                <h3>{service.title}</h3>
+                <span className="service-icon">{service.icon}</span>
+              </div>
+              <p>{service.description}</p>
+            </div>
+          ))}
+        </div>
 
+        {/* Navigation Buttons */}
+        <div className="services-navigation">
+          <button className="scroll-btn" onClick={() => scroll('left')} aria-label="Scroll left">
+            <ChevronLeft size={24} />
+          </button>
+          <button className="scroll-btn" onClick={() => scroll('right')} aria-label="Scroll right">
+            <ChevronRight size={24} />
+          </button>
+        </div>
+      </section>
+
+      <div className="container">
         {/* 4️⃣ Why Choose Us */}
         <section className="why-choose-us-section">
-          <h2>Why Choose Us?</h2>
-          <div className="features-grid">
-            <div className="feature-item">
-              <div className="feature-icon">✅</div>
-              <h3>Trusted Local Store</h3>
-              <p>Rooted in the community, we are always here when you need us.</p>
+          <div className="why-choose-us-container">
+            {/* Left Column: Text Content */}
+            <div className="why-content">
+              <h2>Why Choose Us?</h2>
+              <p>
+                We are committed to providing our customers with exceptional service, competitive pricing, and a wide range of products.
+              </p>
+              <button className="btn btn-primary">
+                Get Started <ArrowRight size={20} />
+              </button>
             </div>
-            <div className="feature-item">
-              <div className="feature-icon">💎</div>
-              <h3>Quality Products</h3>
-              <p>We stock only genuine, high-performance electronics and tools.</p>
-            </div>
-            <div className="feature-item">
-              <div className="feature-icon">🏷️</div>
-              <h3>Affordable Pricing</h3>
-              <p>Competitive rates without compromising on quality or service.</p>
-            </div>
-            <div className="feature-item">
-              <div className="feature-icon">🤝</div>
-              <h3>After-Sale Support</h3>
-              <p>Our relationship doesn't end at checkout; we support you all the way.</p>
+
+            {/* Right Column: Features Grid */}
+            <div className="why-features-grid">
+              <div className="why-feature-item">
+                <div className="why-feature-icon">
+                  <CheckCircle size={32} />
+                </div>
+                <h3>Trusted Local Store</h3>
+                <p>Rooted in the community, we are always here when you need us.</p>
+              </div>
+
+              <div className="why-feature-item">
+                <div className="why-feature-icon">
+                  <Diamond size={32} />
+                </div>
+                <h3>Quality Products</h3>
+                <p>We stock only genuine, high-performance electronics and tools.</p>
+              </div>
+
+              <div className="why-feature-item">
+                <div className="why-feature-icon">
+                  <Tag size={32} />
+                </div>
+                <h3>Affordable Pricing</h3>
+                <p>Competitive rates without compromising on quality or service.</p>
+              </div>
+
+              <div className="why-feature-item">
+                <div className="why-feature-icon">
+                  <Handshake size={32} />
+                </div>
+                <h3>After-Sale Support</h3>
+                <p>Our relationship doesn't end at checkout; we support you all the way.</p>
+              </div>
             </div>
           </div>
         </section>
@@ -105,7 +165,7 @@ const AboutUs: React.FC = () => {
             <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" className="btn btn-whatsapp-solid">
               WhatsApp Us 📲
             </a>
-            <a href="tel:+1234567890" className="btn btn-call-solid">
+            <a href="tel:+250786729568" className="btn btn-call-solid">
               Call Us 📞
             </a>
           </div>
